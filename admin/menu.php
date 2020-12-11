@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Menu - ConfiguroWeb Admin</title>
+    <title>Categoria</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -42,7 +42,7 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | ConfiguroWeb</a>
+      <a class="navbar-brand mr-1" href="index.php">Restaurante|Administrador</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -74,7 +74,7 @@
         <li class="nav-item">
           <a class="nav-link" href="menu.php">
             <i class="fas fa-fw fa-utensils"></i>
-            <span>Menú</span></a>
+            <span>Categoria</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="sales.php">
@@ -107,13 +107,13 @@
             <li class="breadcrumb-item">
               <a href="index.php">Panel de Control</a>
             </li>
-            <li class="breadcrumb-item active">Menú</li>
+            <li class="breadcrumb-item active">Categoria</li>
           </ol>
 
           <!-- Page Content -->
-          <h1>Administración del Menú</h1>
+          <h1>Administración de Categorias</h1>
           <hr>
-          <p>Acá puedes Administrar los menús de tu restaurante, puedes Agregar, Modificar o Eliminar listas de Menús.</p>
+          <p>Seccion de Categorias del Restaurante, puedes Agregar, Modificar o Eliminar categorias.</p>
 
           <div class="card mb-3 border-primary">
             <div class="card-header">
@@ -139,7 +139,7 @@
 					            <div class="card-header">
 
 					              <i class="fas fa-chart-area"></i>
-					              <?php echo $menuRow["menuName"]; ?>
+					              <?php echo $menuRow["nombre"]; ?>
   					              <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="<?php echo $menuRow["menuName"];?>" data-menuid="<?php echo $menuRow["menuID"];?>">Eliminar</button>
 
   					              <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addItemModal" data-category="<?php echo $menuRow["menuName"];?>" data-menuid="<?php echo $menuRow["menuID"];?>">Agregar</button>
