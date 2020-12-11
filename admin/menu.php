@@ -118,31 +118,31 @@
           <div class="card mb-3 border-primary">
             <div class="card-header">
               <i class="fas fa-chart-area"></i>
-              Lista de Menús
+              Lista de Categorias
               <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addMenuModal">Agregar Categoría</button>
 
           </div>
             <div class="card-body">
 
             	<?php 
-					$menuQuery = "SELECT * FROM categoria";
+					$catQuery = "SELECT * FROM categoria";
 
-					if ($menuResult = $sqlconnection->query($menuQuery)) {
+					if ($catResult = $sqlconnection->query($catQuery)) {
 
-						if ($menuResult->num_rows == 0) {
+						if ($catResult->num_rows == 0) {
 							echo "<center><label>Sin menús agregados por el momento.</label></center>";
 						}
 
-						while($menuRow = $menuResult->fetch_array(MYSQLI_ASSOC)) {?>
+						while($catRow = $catResult->fetch_array(MYSQLI_ASSOC)) {?>
 
 							<div class="card mb-3 border-primary">
 					            <div class="card-header">
 
 					              <i class="fas fa-chart-area"></i>
-					              <?php echo $menuRow["nombre"]; ?>
-  					              <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="<?php echo $menuRow["menuName"];?>" data-menuid="<?php echo $menuRow["menuID"];?>">Eliminar</button>
-
-  					              <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addItemModal" data-category="<?php echo $menuRow["menuName"];?>" data-menuid="<?php echo $menuRow["menuID"];?>">Agregar</button>
+					              <?php echo $catRow["nombre"]; ?>
+  					              <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="<?php echo $catRow["nombre"];?>" data-menuid="<?php echo $catRow["codigo"];?>">Eliminar</button>
+								
+  					              <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addItemModal" data-category="<?php echo $catRow["nombre"];?>" data-menuid="<?php echo $catRow["codigo"];?>">Agregar</button>
 
 					          	</div>
 					            <div class="card-body">
@@ -155,26 +155,26 @@
 									<td>Opciones</td>
 								</tr>
 							<?php
-								$menuItemQuery = "SELECT * FROM tbl_menuitem WHERE menuID = " . $menuRow["menuID"];
+								$productQuery = "SELECT * FROM productos WHERE cate_cod = " . $catRow["codigo"];
 
 								//No item in menu
-								if ($menuItemResult = $sqlconnection->query($menuItemQuery)) {
+								if ($productResult = $sqlconnection->query($productQuery)) {
 
-									if ($menuItemResult->num_rows == 0) {
-											echo "<td colspan='4' class='text-center'>Sin productos agregados en este Menú.</td>";
+									if ($productResult->num_rows == 0) {
+											echo "<td colspan='4' class='text-center'>Sin productos agregados en esta Categoria.</td>";
 										}
 
 									$itemno = 1;
 									//Fetch and display all item based on their category 
-									while($menuItemRow = $menuItemResult->fetch_array(MYSQLI_ASSOC)) {	?>
+									while($productRow = $productResult->fetch_array(MYSQLI_ASSOC)) {	?>
 
 										<tr>
 											<td><?php echo $itemno++; ?></td>
-			        						<td><?php echo $menuItemRow["menuItemName"] ?></td>
-			        						<td><?php echo $menuItemRow["price"] ?></td>
+			        						<td><?php echo $productRow["nombre"] ?></td>
+			        						<td><?php echo $productRow["price"] ?></td>
 			        						<td>
-			        							<a href="#editItemModal" data-toggle="modal" data-itemname="<?php echo $menuItemRow["menuItemName"] ?>" data-itemprice="<?php echo $menuItemRow["price"] ?>" data-menuid="<?php echo $menuRow["menuID"] ?>" data-itemid="<?php echo $menuItemRow["itemID"] ?>">Editar </a>
-			        							<a href="deleteitem.php?itemID=<?php echo $menuItemRow["itemID"] ?>&menuID=<?php echo $menuRow["menuID"] ?>"> Eliminar</a></td>
+			        							<a href="#editItemModal" data-toggle="modal" data-itemname="<?php echo $productRow["nombre"] ?>" data-itemprice="<?php echo $productRow["price"] ?>" data-menuid="<?php echo $catRow["menuID"] ?>" data-itemid="<?php echo $productRow["itemID"] ?>">Editar </a>
+			        							<a href="deleteitem.php?itemID=<?php echo $productRow["codigo"] ?>&menuID=<?php echo $catRow["codigo"] ?>"> Eliminar</a></td> <!--analizar-->
 										</tr>
 
 									<?php
@@ -257,7 +257,7 @@
 	        <form id="addmenuform" method="POST">
 	        	<div class="form-group">
 		            <label class="col-form-label">Categoría:</label>
-		            <input type="text" required="required" class="form-control" name="menuname" placeholder="Puedes poner algo como postres, bebidas, etc...." >
+		            <input type="text" required="required" class="form-control" name="categoria" placeholder="Puedes poner algo como postres, bebidas, etc...." >
 		        </div>
 	        </form>
 	      </div>
@@ -373,7 +373,7 @@
 
 			  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 			  var modal = $(this);
-			  modal.find('.modal-title').text('Agregar Nuevo Menú -- ' + category );
+			  modal.find('.modal-title').text('Nueva Producto | ' + category );
 			  modal.find('.modal-body #menuid').val(id);
 		});
 

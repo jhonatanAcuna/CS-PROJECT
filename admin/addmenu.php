@@ -1,25 +1,21 @@
 <?php
 	
 	//Add new menu (category)
-	if (isset($_POST['addmenu'])) {
+	if (isset($_POST['categoria'])) {
 
-		if (!empty($_POST['menuname'])) {
-			$menuname = $sqlconnection->real_escape_string($_POST['menuname']);
+		if (!empty($_POST['categoria'])) {
+			$categoria = $sqlconnection->real_escape_string($_POST['categoria']);
 
-			$addMenuQuery = "INSERT INTO categoria (nombre) VALUES ('{$menuname}')";
+			$addCateQuery = "INSERT INTO categoria (nombre) VALUES ('{$categoria}')";
 
-			if ($sqlconnection->query($addMenuQuery) === TRUE) {
+			if ($sqlconnection->query($addCateQuery) === TRUE) {
 				header("Location: menu.php");
 			} else {
 				//handle
 				echo "someting wong";
 			}
 		}
-
-		//No input handle
-		else {
-			echo "Jangan bia kosong bang 12";
-		}
+		
 
 	}
 
