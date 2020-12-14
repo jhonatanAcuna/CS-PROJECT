@@ -1,37 +1,34 @@
 <?php
 
-	if (isset($_POST['deletemenu'])) {
+	if (isset($_POST['deleteCat'])) {
 
-		//Deleting Menu
-		if (isset($_POST['menuID'])) {
+		//Eliminando el Menú
+		if (isset($_POST['catID'])) {
 			
-			$menuID = $sqlconnection->real_escape_string($_POST['menuID']);
+			$categoria = $sqlconnection->real_escape_string($_POST['catID']);
 
-			//delete all item in this menu first
-			$deleteMenuItemQuery = "DELETE FROM tbl_menuitem WHERE menuID = {$menuID}";
+			//primeramente se borran los productos
+			$deleteCatItemQuery = "DELETE FROM productos WHERE cate_cod = {$categoria}";
 
-			if ($sqlconnection->query($deleteMenuItemQuery) === TRUE) {
+			if ($sqlconnection->query($deleteCatItemQuery) === TRUE) {
 
-				//them delete the menu after deleting all the item in this menu
-				$deleteMenuQuery = "DELETE FROM tbl_menu WHERE menuID = {$menuID}";
+				//Luego eliminamos la categoria
+				$deleteCatQuery = "DELETE FROM categoria WHERE codigo = {$categoria}";
 
-				if ($sqlconnection->query($deleteMenuQuery) === TRUE) {
-					header("Location: menu.php"); 
+				if ($sqlconnection->query($deleteCatQuery) === TRUE) {
+					header("Location: menu.php");//modifcar 
 					exit();
 					} 
-				else {
-						//handle
+				else {		
 						echo "someting wrong";
 						echo $sqlconnection->error;
 					}
 				} 
 
 			else {
-					//handle
 					echo "someting wrong";
 					echo $sqlconnection->error;
 				}
-			//echo "<script>alert('{$del_menuID} & {$del_itemID}')</script>";
 		}
 	}
 	

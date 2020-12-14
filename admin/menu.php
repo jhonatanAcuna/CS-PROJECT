@@ -140,7 +140,7 @@
 
 					              <i class="fas fa-chart-area"></i>
 					              <?php echo $catRow["nombre"]; ?>
-  					              <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="<?php echo $catRow["nombre"];?>" data-menuid="<?php echo $catRow["codigo"];?>">Eliminar</button>
+  					              <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="<?php echo $catRow["nombre"];?>" data-catid="<?php echo $catRow["codigo"];?>">Eliminar</button>
 								
   					              <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addItemModal" data-category="<?php echo $catRow["nombre"];?>" data-menuid="<?php echo $catRow["codigo"];?>">Agregar</button>
 
@@ -345,10 +345,10 @@
           <div class="modal-body">Seleccione "Eliminar" a continuación se eliminará <strong>todos</strong> su artículo o menú en esta categoría.</div>
           <div class="modal-footer">
           	<form id="deletemenuform" method="POST">
-          		<input type="hidden" name="menuID" id="menuid">
+          		<input type="hidden" name="catID" id="menuid">
           	</form>
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-	        <button type="submit" form="deletemenuform" class="btn btn-danger" name="deletemenu">Eliminar</button>
+	        <button type="submit" form="deletemenuform" class="btn btn-danger" name="deleteCat">Eliminar</button>
           </div>
         </div>
       </div>
@@ -396,7 +396,7 @@
 
 		$('#deleteModal').on('show.bs.modal', function (event) {
 			  var button = $(event.relatedTarget); // Button that triggered the modal
-			  var id = button.data('menuid'); // Extract info from data-* attributes
+			  var id = button.data('catid'); // Extract info from data-* attributes
 			  var category = button.data('category');
 
 			  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
