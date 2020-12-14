@@ -1,7 +1,7 @@
 <?php
 	include("../functions.php");
 	include("addCategoria.php");
-	include("additem.php");
+	include("addProduct.php");
 	include("deleteCategoria.php");
 
 	if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
@@ -140,9 +140,8 @@
 
 					              <i class="fas fa-chart-area"></i>
 					              <?php echo $catRow["nombre"]; ?>
-  					              <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="<?php echo $catRow["nombre"];?>" data-catid="<?php echo $catRow["codigo"];?>">Eliminar</button>
-								
-  					              <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addItemModal" data-category="<?php echo $catRow["nombre"];?>" data-menuid="<?php echo $catRow["codigo"];?>">Agregar</button>
+  					              <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="<?php echo $catRow["nombre"];?>" data-catid="<?php echo $catRow["codigo"];?>">Eliminar</button> <!-- elimina categoria-->
+  					              <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addProd" data-category="<?php echo $catRow["nombre"];?>" data-catid="<?php echo $catRow["codigo"];?>">Agregar</button><!--agrega producto-->
 
 					          	</div>
 					            <div class="card-body">
@@ -163,11 +162,11 @@
 											echo "<td colspan='4' class='text-center'>Sin productos agregados en esta Categoria.</td>";
 										}
 
-									$itemno = 1;
+									$productCount = 1;
 									while($productRow = $productResult->fetch_array(MYSQLI_ASSOC)) {	?>
 
 										<tr>
-											<td><?php echo $itemno++; ?></td>
+											<td><?php echo $productCount++; ?></td>
 			        						<td><?php echo $productRow["nombre"] ?></td>
 			        						<td><?php echo $productRow["price"] ?></td>
 			        						<td>
@@ -246,7 +245,7 @@
 	        <form id="addcatform" method="POST">
 	        	<div class="form-group">
 		            <label class="col-form-label">Categoría:</label>
-		            <input type="text" required="required" class="form-control" name="categoria" placeholder="Puedes poner algo como postres, bebidas, etc...." >
+		            <input type="text" required="required" class="form-control" name="categoria" placeholder="Ingresa el nombre de la Categoría" >
 		        </div>
 	        </form>
 	      </div>
@@ -258,12 +257,12 @@
 	  </div>
 	</div>
 
-	<!-- Add Item Modal -->
-	<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+	<!-- Agregando Productos-->
+	<div class="modal fade" id="addProd" tabindex="-1" role="dialog" aria-labelledby="addProdLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="addItemModalLabel">Agregar Menú</h5>
+	        <h5 class="modal-title" id="addProdLabel"></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
@@ -272,18 +271,18 @@
 	        <form id="additemform" method="POST">
 	        	<div class="form-group">
 		            <label class="col-form-label">Nombre:</label>
-		            <input type="text" required="required" class="form-control" name="itemName" placeholder="Puedes poner algo como Sopa, Pepsi o algo así" >
+		            <input type="text" required="required" class="form-control" name="prodName" placeholder="Nombre del producto" >
 		        </div>
 		        <div class="form-group">
 		            <label class="col-form-label">Precio (COP):</label>
-		            <input type="text" required="required" class="form-control" name="itemPrice"  >
-		            <input type="hidden" name="menuID" id="menuid">
+		            <input type="text" required="required" class="form-control" name="price"  >
+		            <input type="hidden" name="category" id="categoria">
 		        </div>
 	        </form>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-	        <button type="submit" form="additemform" class="btn btn-success" name="addItem">Agregar</button>
+	        <button type="submit" form="additemform" class="btn btn-success" name="addProd">Agregar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -294,7 +293,7 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="addItemModalLabel">Editar Menú</h5>
+	        <h5 class="modal-title" id="addProdLabel">Editar Menú</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
@@ -355,15 +354,15 @@
 
     <script>
     	//passing menuId to modal
-    	$('#addItemModal').on('show.bs.modal', function (event) {
-			  var button = $(event.relatedTarget); // Button that triggered the modal
-			  var id = button.data('menuid'); // Extract info from data-* attributes
+    	$('#addProd').on('show.bs.modal', function (event) {
+			  var button = $(event.relatedTarget); 
+			  var id = button.data('catid'); 
 			  var category = button.data('category');
 
 			  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 			  var modal = $(this);
 			  modal.find('.modal-title').text('Nueva Producto | ' + category );
-			  modal.find('.modal-body #menuid').val(id);
+			  modal.find('.modal-body #categoria').val(id);
 		});
 
 		$('#editItemModal').on('show.bs.modal', function (event) {
