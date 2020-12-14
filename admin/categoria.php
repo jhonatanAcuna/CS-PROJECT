@@ -141,7 +141,7 @@
 					              <i class="fas fa-chart-area"></i>
 					              <?php echo $catRow["nombre"]; ?>
   					              <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="<?php echo $catRow["nombre"];?>" data-catid="<?php echo $catRow["codigo"];?>">Eliminar</button> <!-- elimina categoria-->
-  					              <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addProd" data-category="<?php echo $catRow["nombre"];?>" data-catid="<?php echo $catRow["codigo"];?>">Agregar</button><!--agrega producto-->
+  					              <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addProdModal" data-category="<?php echo $catRow["nombre"];?>" data-catid="<?php echo $catRow["codigo"];?>">Agregar</button><!--agrega producto-->
 
 					          	</div>
 					            <div class="card-body">
@@ -258,17 +258,17 @@
 	</div>
 
 	<!-- Agregando Productos-->
-	<div class="modal fade" id="addProd" tabindex="-1" role="dialog" aria-labelledby="addProdLabel" aria-hidden="true">
+	<div class="modal fade" id="addProdModal" tabindex="-1" role="dialog" aria-labelledby="addProdModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="addProdLabel"></h5>
+	        <h5 class="modal-title" id="addProdModalLabel"></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	        <form id="additemform" method="POST">
+	        <form id="addProdform" method="POST">
 	        	<div class="form-group">
 		            <label class="col-form-label">Nombre:</label>
 		            <input type="text" required="required" class="form-control" name="prodName" placeholder="Nombre del producto" >
@@ -282,7 +282,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-	        <button type="submit" form="additemform" class="btn btn-success" name="addProd">Agregar</button>
+	        <button type="submit" form="addProdform" class="btn btn-success" name="addProd">Agregar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -293,7 +293,7 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="addProdLabel">Editar Menú</h5>
+	        <h5 class="modal-title" id="addProdModalLabel">Editar Menú</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
@@ -354,7 +354,7 @@
 
     <script>
     	//passing menuId to modal
-    	$('#addProd').on('show.bs.modal', function (event) {
+    	$('#addProdModal').on('show.bs.modal', function (event) {
 			  var button = $(event.relatedTarget); 
 			  var id = button.data('catid'); 
 			  var category = button.data('category');
