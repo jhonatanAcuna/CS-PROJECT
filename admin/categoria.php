@@ -1,8 +1,8 @@
 <?php
 	include("../functions.php");
-	include("addmenu.php");
+	include("addCategoria.php");
 	include("additem.php");
-	include("deletemenu.php");
+	include("deleteCategoria.php");
 
 	if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
 		header("Location: login.php");
@@ -72,7 +72,7 @@
 
         
         <li class="nav-item">
-          <a class="nav-link" href="menu.php">
+          <a class="nav-link" href="categoria.php">
             <i class="fas fa-fw fa-utensils"></i>
             <span>Categoria</span></a>
         </li>
@@ -119,7 +119,7 @@
             <div class="card-header">
               <i class="fas fa-chart-area"></i>
               Lista de Categorias
-              <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addMenuModal">Agregar Categoría</button>
+              <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addCatModal">Agregar Categoría</button>
 
           </div>
             <div class="card-body">
@@ -130,7 +130,7 @@
 					if ($catResult = $sqlconnection->query($catQuery)) {
 
 						if ($catResult->num_rows == 0) {
-							echo "<center><label>Sin menús agregados por el momento.</label></center>";
+							echo "<center><label>Sin productos agregados por el momento.</label></center>";
 						}
 
 						while($catRow = $catResult->fetch_array(MYSQLI_ASSOC)) {?>
@@ -157,7 +157,6 @@
 							<?php
 								$productQuery = "SELECT * FROM productos WHERE cate_cod = " . $catRow["codigo"];
 
-								//No item in menu
 								if ($productResult = $sqlconnection->query($productQuery)) {
 
 									if ($productResult->num_rows == 0) {
@@ -165,7 +164,6 @@
 										}
 
 									$itemno = 1;
-									//Fetch and display all item based on their category 
 									while($productRow = $productResult->fetch_array(MYSQLI_ASSOC)) {	?>
 
 										<tr>
@@ -204,15 +202,6 @@
         </div>
         <!-- /.container-fluid -->
 
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Sistema de Restaurante ConfiguroWeb 2020</span>
-            </div>
-          </div>
-        </footer>
-
       </div>
       <!-- /.content-wrapper -->
 
@@ -243,18 +232,18 @@
       </div>
     </div>
 
-	<!-- Add Menu Modal -->
-	<div class="modal fade" id="addMenuModal" tabindex="-1" role="dialog" aria-labelledby="addMenuModalLabel" aria-hidden="true">
+	<!-- Add Categorai Modal -->
+	<div class="modal fade" id="addCatModal" tabindex="-1" role="dialog" aria-labelledby="addCatModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="addMenuModalLabel">Agregar Categoría</h5>
+	        <h5 class="modal-title" id="addCatModalLabel">Agregar Categoría</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	        <form id="addmenuform" method="POST">
+	        <form id="addcatform" method="POST">
 	        	<div class="form-group">
 		            <label class="col-form-label">Categoría:</label>
 		            <input type="text" required="required" class="form-control" name="categoria" placeholder="Puedes poner algo como postres, bebidas, etc...." >
@@ -263,7 +252,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-	        <button type="submit" form="addmenuform" class="btn btn-success" name="addmenu">Agregar</button>
+	        <button type="submit" form="addcatform" class="btn btn-success" name="addcategoria">Agregar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -337,7 +326,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="deleteModalLabel">Estás seguro de eliminar este menú?</h5>
+            <h5 class="modal-title" id="deleteModalLabel">¿Realmente desea eliminar la Categoría?</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
@@ -345,7 +334,7 @@
           <div class="modal-body">Seleccione "Eliminar" a continuación se eliminará <strong>todos</strong> su artículo o menú en esta categoría.</div>
           <div class="modal-footer">
           	<form id="deletemenuform" method="POST">
-          		<input type="hidden" name="catID" id="menuid">
+          		<input type="hidden" name="catID" id="catid">
           	</form>
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
 	        <button type="submit" form="deletemenuform" class="btn btn-danger" name="deleteCat">Eliminar</button>
@@ -395,14 +384,13 @@
 
 
 		$('#deleteModal').on('show.bs.modal', function (event) {
-			  var button = $(event.relatedTarget); // Button that triggered the modal
-			  var id = button.data('catid'); // Extract info from data-* attributes
+			  var button = $(event.relatedTarget); 
+			  var id = button.data('catid'); 
 			  var category = button.data('category');
 
-			  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 			  var modal = $(this);
-			  modal.find('.modal-body').html('Selecciona "Eliminar" y a continuación se borrará esta lista completa');
-			  modal.find('.modal-footer #menuid').val(id);
+			  modal.find('.modal-body').html('Presiona "Eliminar" y procederá a eliminar la lista completa');
+			  modal.find('.modal-footer #catid').val(id);
 		});
     </script>
 

@@ -2,7 +2,7 @@
 
 	if (isset($_POST['deleteCat'])) {
 
-		//Eliminando el Menú
+		//Eliminando categoria
 		if (isset($_POST['catID'])) {
 			
 			$categoria = $sqlconnection->real_escape_string($_POST['catID']);
@@ -16,7 +16,7 @@
 				$deleteCatQuery = "DELETE FROM categoria WHERE codigo = {$categoria}";
 
 				if ($sqlconnection->query($deleteCatQuery) === TRUE) {
-					header("Location: menu.php");//modifcar 
+					header("Location: categoria.php");//modifcar 
 					exit();
 					} 
 				else {		

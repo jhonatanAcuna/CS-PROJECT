@@ -1,6 +1,5 @@
 <?php
 	
-	//Add new menu (category)
 	if (isset($_POST['categoria'])) {
 
 		if (!empty($_POST['categoria'])) {
@@ -9,9 +8,8 @@
 			$addCateQuery = "INSERT INTO categoria (nombre) VALUES ('{$categoria}')";
 
 			if ($sqlconnection->query($addCateQuery) === TRUE) {
-				header("Location: menu.php");
+				header("Location: categoria.php");
 			} else {
-				//handle
 				echo "someting wong";
 			}
 		}

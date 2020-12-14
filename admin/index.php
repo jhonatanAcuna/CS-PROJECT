@@ -74,7 +74,7 @@
 
         
         <li class="nav-item"> <!-- redirección a menu.php -->
-          <a class="nav-link" href="menu.php">
+          <a class="nav-link" href="categoria.php">
             <i class="fas fa-fw fa-utensils"></i>
             <span>Categoría</span></a>
         </li>
