@@ -170,7 +170,7 @@
 			        						<td><?php echo $productRow["nombre"] ?></td>
 			        						<td><?php echo $productRow["price"] ?></td>
 			        						<td>
-			        							<a href="#editItemModal" data-toggle="modal" data-itemname="<?php echo $productRow["nombre"] ?>" data-itemprice="<?php echo $productRow["price"] ?>" data-menuid="<?php echo $catRow["menuID"] ?>" data-itemid="<?php echo $productRow["itemID"] ?>">Editar </a>
+			        							<a href="#editProductModal" data-toggle="modal" data-prodname="<?php echo $productRow["nombre"] ?>" data-prodprice="<?php echo $productRow["price"] ?>" data-catcod="<?php echo $catRow["codigo"] ?>" data-prodcot="<?php echo $productRow["codigo"] ?>">Editar </a>
 			        							<a href="deleteitem.php?itemID=<?php echo $productRow["codigo"] ?>&menuID=<?php echo $catRow["codigo"] ?>"> Eliminar</a></td> <!--analizar-->
 										</tr>
 
@@ -274,7 +274,7 @@
 		            <input type="text" required="required" class="form-control" name="prodName" placeholder="Nombre del producto" >
 		        </div>
 		        <div class="form-group">
-		            <label class="col-form-label">Precio (COP):</label>
+		            <label class="col-form-label">Precio:</label>
 		            <input type="text" required="required" class="form-control" name="price"  >
 		            <input type="hidden" name="category" id="categoria">
 		        </div>
@@ -288,8 +288,8 @@
 	  </div>
 	</div>
 
-	<!-- Edit Item Modal -->
-	<div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
+	<!-- Editando productos -->
+	<div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -299,22 +299,22 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	        <form id="edititemform" action="edititem.php" method="POST">
+	        <form id="editProductform" action="editProduct.php" method="POST"><!--observar cambio-->
 	        	<div class="form-group">
 		            <label class="col-form-label">Nombre:</label>
-		            <input type="text" required="required" id="itemname" class="form-control" name="itemName" placeholder="Sopa,Pepsi,etc" >
+		            <input type="text" required="required" id="prodName" class="form-control" name="prodName" placeholder="Sopa,Pepsi,etc" >
 		        </div>
 		        <div class="form-group">
-		            <label class="col-form-label">Precio (COP):</label>
-		            <input type="text" required="required" id="itemprice" class="form-control" name="itemPrice" placeholder="" >
-		            <input type="hidden" name="menuID" id="menuid">
-		            <input type="hidden" name="itemID" id="itemid">
+		            <label class="col-form-label">Precio: </label>
+		            <input type="text" required="required" id="prodPrice" class="form-control" name="prodPrice" placeholder="" >
+		            <input type="hidden" name="cateCod" id="cateCod">
+		            <input type="hidden" name="prodCod" id="prodCod">
 		        </div>
 	        </form>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	        <button type="submit" form="edititemform" class="btn btn-primary" name="btnedit">Editar</button>
+	        <button type="submit" form="editProductform" class="btn btn-primary" name="editprod">Editar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -365,20 +365,19 @@
 			  modal.find('.modal-body #categoria').val(id);
 		});
 
-		$('#editItemModal').on('show.bs.modal', function (event) {
-			  var button = $(event.relatedTarget); // Button that triggered the modal
+		$('#editProductModal').on('show.bs.modal', function (event) {
+			  var button = $(event.relatedTarget); 
 
-			  var menuid = button.data('menuid'); // Extract info from data-* attributes
-			  var itemid = button.data('itemid');
-			  var itemname = button.data('itemname');
-			  var itemprice = button.data('itemprice');
+			  var catecod = button.data('catcod'); // extrayendo información de los atributos data
+			  var prodcod = button.data('prodcot');
+			  var prodname = button.data('prodname');
+			  var prodprice = button.data('prodprice');
 
-			  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 			  var modal = $(this);
-			  modal.find('.modal-body #menuid').val(menuid);
-			  modal.find('.modal-body #itemid').val(itemid);
-			  modal.find('.modal-body #itemname').val(itemname);
-			  modal.find('.modal-body #itemprice').val(itemprice);
+			  modal.find('.modal-body #cateCod').val(catecod);
+			  modal.find('.modal-body #prodCod').val(prodcod);
+			  modal.find('.modal-body #prodName').val(prodname);
+			  modal.find('.modal-body #prodPrice').val(prodprice);
 		});
 
 
