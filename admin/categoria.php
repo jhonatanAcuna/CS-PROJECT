@@ -149,8 +149,8 @@
                 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 								<tr>
 									<td>#</td>
-									<td>Nombre de Item</td>
-									<td>Precio (COP)</td>
+									<td>Nombre de Producto</td>
+									<td>Precio </td>
 									<td>Opciones</td>
 								</tr>
 							<?php
@@ -171,7 +171,7 @@
 			        						<td><?php echo $productRow["price"] ?></td>
 			        						<td>
 			        							<a href="#editProductModal" data-toggle="modal" data-prodname="<?php echo $productRow["nombre"] ?>" data-prodprice="<?php echo $productRow["price"] ?>" data-catcod="<?php echo $catRow["codigo"] ?>" data-prodcot="<?php echo $productRow["codigo"] ?>">Editar </a>
-			        							<a href="deleteitem.php?itemID=<?php echo $productRow["codigo"] ?>&menuID=<?php echo $catRow["codigo"] ?>"> Eliminar</a></td> <!--analizar-->
+			        							<a href="deleteProduct.php?prodCod=<?php echo $productRow["codigo"] ?>&catCod=<?php echo $catRow["codigo"] ?>"> Eliminar</a></td> 
 										</tr>
 
 									<?php
@@ -299,10 +299,10 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	        <form id="editProductform" action="editProduct.php" method="POST"><!--observar cambio-->
+	        <form id="editProductform" action="editProduct.php" method="POST">
 	        	<div class="form-group">
 		            <label class="col-form-label">Nombre:</label>
-		            <input type="text" required="required" id="prodName" class="form-control" name="prodName" placeholder="Sopa,Pepsi,etc" >
+		            <input type="text" required="required" id="prodName" class="form-control" name="prodName" placeholder="Nombre del Producto" >
 		        </div>
 		        <div class="form-group">
 		            <label class="col-form-label">Precio: </label>
@@ -330,13 +330,13 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">Seleccione "Eliminar" a continuación se eliminará <strong>todos</strong> su artículo o menú en esta categoría.</div>
+          <div class="modal-body"></div>
           <div class="modal-footer">
-          	<form id="deletemenuform" method="POST">
+          	<form id="deleteCategoryform" method="POST">
           		<input type="hidden" name="catID" id="catid">
           	</form>
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-	        <button type="submit" form="deletemenuform" class="btn btn-danger" name="deleteCat">Eliminar</button>
+	        <button type="submit" form="deleteCategoryform" class="btn btn-danger" name="deleteCat">Eliminar</button>
           </div>
         </div>
       </div>
@@ -353,13 +353,12 @@
     <script src="js/sb-admin.min.js"></script>
 
     <script>
-    	//passing menuId to modal
+
     	$('#addProdModal').on('show.bs.modal', function (event) {
 			  var button = $(event.relatedTarget); 
 			  var id = button.data('catid'); 
 			  var category = button.data('category');
 
-			  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 			  var modal = $(this);
 			  modal.find('.modal-title').text('Nueva Producto | ' + category );
 			  modal.find('.modal-body #categoria').val(id);
