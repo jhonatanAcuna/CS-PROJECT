@@ -7,16 +7,16 @@
 	if($_SESSION['user_level'] != "employee")
 		header("Location: login.php");
 
-	if (isset($_POST['btnMenuID'])) {
+	if (isset($_POST['btnCat'])) {
 
-		$menuID = $sqlconnection->real_escape_string($_POST['btnMenuID']);
+		$catCod = $sqlconnection->real_escape_string($_POST['btnCat']);
 
-		$menuItemQuery = "SELECT codigo,nombre FROM productos WHERE cate_cod = " . $menuID;
+		$prodQuery = "SELECT procod,pronom FROM productos WHERE catcod = " . $catCod;
 
-		if ($menuItemResult = $sqlconnection->query($menuItemQuery)) {
-			if ($menuItemResult->num_rows > 0) {
+		if ($prodResult = $sqlconnection->query($prodQuery)) {
+			if ($prodResult->num_rows > 0) {
 				$counter = 0;
-				while($menuItemRow = $menuItemResult->fetch_array(MYSQLI_ASSOC)) {
+				while($prodRow = $prodResult->fetch_array(MYSQLI_ASSOC)) {
 
 					if ($counter >=3) {
 						echo "</tr>";
@@ -27,7 +27,7 @@
 						echo "<tr>";
 					}
 
-					echo "<td><button style='margin-bottom:4px;white-space: normal;' class='btn btn-warning' onclick = 'setQty({$menuItemRow['codigo']})'>{$menuItemRow['nombre']}</button></td>";
+					echo "<td><button style='margin-bottom:4px;white-space: normal;' class='btn btn-warning' onclick = 'setQty({$prodRow['procod']})'>{$prodRow['pronom']}</button></td>";
 
 					$counter++;
 				}
@@ -40,23 +40,23 @@
 		}
 	}
 
-	if (isset($_POST['btnMenuItemID']) && isset($_POST['qty'])) {
+	if (isset($_POST['btnProd']) && isset($_POST['qty'])) {
 		
-		$menuItemID = $sqlconnection->real_escape_string($_POST['btnMenuItemID']);
+		$prodID = $sqlconnection->real_escape_string($_POST['btnProd']);
 		$quantity = $sqlconnection->real_escape_string($_POST['qty']);
 
-		$menuItemQuery = "SELECT mi.itemID,mi.menuItemName,mi.price,m.menuName FROM tbl_menuitem mi LEFT JOIN tbl_menu m ON mi.menuID = m.menuID WHERE itemID = " . $menuItemID;
+		$prodQuery = "SELECT mi.procod,mi.pronom,mi.proprice,m.catnom FROM productos mi LEFT JOIN categoria m ON mi.catcod = m.catcod WHERE procod = " . $prodID;
 
-		if ($menuItemResult = $sqlconnection->query($menuItemQuery)) {
-			if ($menuItemResult->num_rows > 0) {
-				if ($menuItemRow = $menuItemResult->fetch_array(MYSQLI_ASSOC)) {
+		if ($prodResult = $sqlconnection->query($prodQuery)) {
+			if ($prodResult->num_rows > 0) {
+				if ($prodRow = $prodResult->fetch_array(MYSQLI_ASSOC)) {
 					echo "
 					<tr>
-						<input type = 'hidden' name = 'itemID[]' value ='".$menuItemRow['itemID']."'/>
-						<td>".$menuItemRow['menuName']." : ".$menuItemRow['menuItemName']."</td>
-						<td>".$menuItemRow['price']."</td>
+						<input type = 'hidden' name = 'itemID[]' value ='".$prodRow['procod']."'/>
+						<td>".$prodRow['catnom']." : ".$prodRow['pronom']."</td>
+						<td>".$prodRow['proprice']."</td>
 						<td><input type = 'number' required='required' min='1' max='50' name = 'itemqty[]' width='10px' class='form-control' value ='".$quantity."'/></td>
-						<td>" . number_format((float)$menuItemRow['price'] * $quantity, 2, '.', '') . "</td>
+						<td>" . number_format((float)$prodRow['proprice'] * $quantity, 2, '.', '') . "</td>
 						<td><button class='btn btn-danger deleteBtn' type='button' onclick='deleteRow()'><i class='fas fa-times'></i></button></td>
 					</tr>
 					";

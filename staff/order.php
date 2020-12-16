@@ -148,7 +148,7 @@
 									echo "<tr>";
 								} 
 								?>
-								<td><button style="margin-bottom:4px;white-space: normal;" class="btn btn-primary" onclick="displayItem(<?php echo $catRow['codigo']?>)"><?php echo $catRow['nombre']?></button></td>
+								<td><button style="margin-bottom:4px;white-space: normal;" class="btn btn-primary" onclick="displayItem(<?php echo $catRow['catcod']?>)"><?php echo $catRow['catnom']?></button></td>
 							<?php
 
 							$counter++;
@@ -243,7 +243,7 @@
 			$.ajax({
 				url : "displayitem.php",
 					type : 'POST',
-					data : { btnMenuID : id },
+					data : { btnCat : id },
 
 					success : function(output) {
 						$("#tblItem").html(output);
@@ -258,7 +258,7 @@
 				url : "displayitem.php",
 					type : 'POST',
 					data : { 
-						btnMenuItemID : id,
+						btnProd : id,
 						qty : quantity 
 					},
 
