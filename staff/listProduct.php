@@ -64,7 +64,6 @@
 			}
 
 			else {
-				//no data retrieve
 				echo "null";
 			}
 			

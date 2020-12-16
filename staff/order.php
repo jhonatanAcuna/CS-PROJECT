@@ -241,7 +241,7 @@
 
 		function displayItem (id) {
 			$.ajax({
-				url : "displayitem.php",
+				url : "listProduct.php",
 					type : 'POST',
 					data : { btnCat : id },
 
@@ -255,7 +255,7 @@
 			var id = currentItemID;
 			var quantity = $("#qty").val();
 			$.ajax({
-				url : "displayitem.php",
+				url : "listProduct.php",
 					type : 'POST',
 					data : { 
 						btnProd : id,
