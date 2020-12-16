@@ -7,17 +7,17 @@
 	if($_SESSION['user_level'] != "admin")
 		header("Location: login.php");
 
-	if (isset($_POST['addstaff'])) {
-		if (!empty($_POST['staffname']) && !empty($_POST['staffrole'])) {
-			$staffUsername = $sqlconnection->real_escape_string($_POST['staffname']);
-			$staffRole = $sqlconnection->real_escape_string($_POST['staffrole']);
+	if (isset($_POST['addEmployee'])) {
+		if (!empty($_POST['employeeName']) && !empty($_POST['employeeRol'])) {
+			$empUserName = $sqlconnection->real_escape_string($_POST['employeeName']);
+			$empRol = $sqlconnection->real_escape_string($_POST['employeeRol']);
 
 
-			$addStaffQuery = "INSERT INTO tbl_staff (username ,password ,status ,role) VALUES ('{$staffUsername}' ,'1234abcd..' ,'Offline' ,'{$staffRole}') ";
+			$addStaffQuery = "INSERT INTO empleado (empuser ,emppass ,empest ,emprol) VALUES ('{$empUserName}' ,'empleado1234' ,'Offline' ,'{$empRol}') ";
 
 			if ($sqlconnection->query($addStaffQuery) === TRUE) {
 					echo "added.";
-					header("Location: staff.php"); 
+					header("Location: Employees.php"); 
 					exit();
 
 				} 

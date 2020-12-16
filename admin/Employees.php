@@ -36,7 +36,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Administración de Empleados - ConfiguroWeb</title>
+    <title>Categoria</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -56,7 +56,7 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | ConfiguroWeb</a>
+      <a class="navbar-brand mr-1" href="index.php">Restaurante|Administrador</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -86,9 +86,9 @@
 
         
         <li class="nav-item">
-          <a class="nav-link" href="menu.php">
+          <a class="nav-link" href="categoria.php">
             <i class="fas fa-fw fa-utensils"></i>
-            <span>Menú</span></a>
+            <span>Categoria</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="sales.php">
@@ -97,7 +97,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="staff.php">
+          <a class="nav-link" href="Employees.php">
             <i class="fas fa-fw fa-user-circle"></i>
             <span>Empleados</span>
           </a>
@@ -119,7 +119,7 @@
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="index.html">Panel de Control</a>
+              <a href="index.php">Panel de Control</a>
             </li>
             <li class="breadcrumb-item active">Empleados</li>
           </ol>
@@ -134,7 +134,7 @@
               <div class="card mb-3">
                 <div class="card-header">
                   <i class="fas fa-user-circle"></i>
-                  Lista Actual de Clientes</div>
+                  Lista Actual de Empleados</div>
                 <div class="card-body">
                   <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                     <tr>
@@ -147,19 +147,19 @@
                     
                       <?php 
 
-                        $displayStaffQuery = "SELECT * FROM tbl_staff";
+                        $empQuery = "SELECT * FROM empleado";
 
-                        if ($result = $sqlconnection->query($displayStaffQuery)) {
+                        if ($result = $sqlconnection->query($empQuery)) {
 
                           if ($result->num_rows == 0) {
-                            echo "<td colspan='4'>There are currently no staff.</td>";
+                            echo "<td colspan='4'>Sin personal Activo</td>";
                           }
 
-                          $staffno = 1;
+                          $empCount = 1;
                           while($staff = $result->fetch_array(MYSQLI_ASSOC)) {
                           ?>  
                           	<tr class="text-center">
-                            	<td><?php echo $staffno++; ?></td>
+                            	<td><?php echo $empCount++; ?></td>
                             	<td><?php echo $staff['username']; ?></td>
 
                               <?php
@@ -224,35 +224,37 @@
               </div>
             </div>
 
+<!-- analisi roles y agregación de empleados-->
             <div class="col-lg-4">
               <div class="card mb-3">
                 <div class="card-header">
-                  <i class="fas fa-chart-bar""></i>
+                  <i class="fas fa-chart-bar"></i>
                   Agregar Nuevo Empleado</div>
                 <div class="card-body">
-                  <form action="addstaff.php" method="POST" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                  <form action="addEmployee.php" method="POST" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
                     <div class="input-group">
-                      <select name="staffrole" class="form-control">
+                      <select name="employeeRol" class="form-control">
                       <?php
 
-                      $roleQuery = "SELECT role FROM tbl_role";
+                      $rolQuery = "SELECT rolnom FROM rol";
 
-                      if ($res = $sqlconnection->query($roleQuery)) {
+                      if ($res = $sqlconnection->query($rolQuery)) {
                         
                         if ($res->num_rows == 0) {
                           echo "no role";
                         }
 
-                        while ($role = $res->fetch_array(MYSQLI_ASSOC)) {
-                            echo "<option value='".$role['role']."'>".ucfirst($role['role'])."</option>";
+                        while ($rol = $res->fetch_array(MYSQLI_ASSOC)) {
+                            echo "<option value='".$rol['rolnom']."'>".ucfirst($rol['rolnom'])."</option>";
                         }
                       }
 
                       ?>
                       </select>
-                      <input type="text" required="required" name="staffname" class="form-control" placeholder="Nuevo Empleado" aria-label="Add" aria-describedby="basic-addon2">
+                      <input type="text" required="required" name="employeeName" class="form-control" placeholder="Nuevo Empleado" aria-label="Add" aria-describedby="basic-addon2">
+                      <!-- contraseña-->
                       <div class="input-group-append">
-                        <button type="submit" name="addstaff" class="btn btn-primary">
+                        <button type="submit" name="addEmployee" class="btn btn-primary">
                           <i class="fas fa-plus"></i>
                         </button> 
                       </div>
@@ -265,15 +267,6 @@
 
         </div>
         <!-- /.container-fluid -->
-
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Sistema de Restaurante ConfiguroWeb 2020</span>
-            </div>
-          </div>
-        </footer>
 
       </div>
       <!-- /.content-wrapper -->

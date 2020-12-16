@@ -85,7 +85,7 @@
         </li>
 
         <li class="nav-item"> <!-- empleados -->
-          <a class="nav-link" href="staff.php">
+        <a class="nav-link" href="Employees.php">
             <i class="fas fa-fw fa-user-circle"></i>
             <span>Empleados</span>
           </a>
