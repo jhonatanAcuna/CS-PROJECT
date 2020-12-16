@@ -4,11 +4,11 @@
   if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
     header("Location: login.php");
 
-  if($_SESSION['user_level'] != "staff")
+  if($_SESSION['user_level'] != "employee")
     header("Location: login.php");
 
-  if($_SESSION['user_role'] != "Mesero"){
-    echo ("<script>window.alert('Solo meseros disponibles!'); window.location.href='index.php';</script>");
+  if($_SESSION['user_role'] != "Mozo"){
+    echo ("<script>window.alert('Solo disponible para Mozos!'); window.location.href='index.php';</script>");
     exit();
   }
 
@@ -25,7 +25,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Order - FOS Staff</title>
+    <title>Nueva Orden</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -45,7 +45,7 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | ConfiguroWeb</a>
+      <a class="navbar-brand mr-1" href="index.php">Restaurante | Empleado</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -76,7 +76,7 @@
         
         <?php
 
-          if ($_SESSION['user_role'] == "Mesero") {
+          if ($_SESSION['user_role'] == "Mozo") {
             echo '
             <li class="nav-item">
               <a class="nav-link" href="order.php">
@@ -134,11 +134,11 @@
                   <table class="table table-bordered text-center" width="100%" cellspacing="0">
                   	<tr>
                   	<?php 
-						$menuQuery = "SELECT * FROM tbl_menu";
+						$categoriaQuery = "SELECT * FROM categoria";
 
-						if ($menuResult = $sqlconnection->query($menuQuery)) {
+						if ($catResult = $sqlconnection->query($categoriaQuery)) {
 							$counter = 0;
-							while($menuRow = $menuResult->fetch_array(MYSQLI_ASSOC)) { 
+							while($catRow = $catResult->fetch_array(MYSQLI_ASSOC)) { 
 								if ($counter >=3) {
 									echo "</tr>";
 									$counter = 0;
@@ -148,7 +148,7 @@
 									echo "<tr>";
 								} 
 								?>
-								<td><button style="margin-bottom:4px;white-space: normal;" class="btn btn-primary" onclick="displayItem(<?php echo $menuRow['menuID']?>)"><?php echo $menuRow['menuName']?></button></td>
+								<td><button style="margin-bottom:4px;white-space: normal;" class="btn btn-primary" onclick="displayItem(<?php echo $catRow['codigo']?>)"><?php echo $catRow['nombre']?></button></td>
 							<?php
 
 							$counter++;
@@ -172,7 +172,7 @@
             <div class="col-lg-6">
               <div class="card mb-3">
                 <div class="card-header">
-                  <i class="fas fa-chart-bar""></i>
+                  <i class="fas fa-chart-bar"></i>
                   Lista de Órdenes</div>
                 <div class="card-body">
                     <form action="insertorder.php" method="POST">
@@ -181,7 +181,7 @@
 								<th>Nombre</th>
 								<th>Precio</th>
 								<th>Cant</th>
-								<th>Total (COP)</th>
+								<th>Total</th>
 							</tr>
 						</table>
 						<input class="btn btn-success" type="submit" name="sentorder" value="Enviar">
@@ -193,16 +193,6 @@
 
         </div>
         <!-- /.container-fluid -->
-
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Sistema de Restaurante ConfiguroWeb 2020</span>
-            </div>
-          </div>
-        </footer>
-
       </div>
       <!-- /.content-wrapper -->
 

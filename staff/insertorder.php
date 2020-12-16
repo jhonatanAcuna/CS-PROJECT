@@ -4,7 +4,7 @@
 	if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
 		header("Location: login.php");
 
-	if($_SESSION['user_level'] != "staff")
+	if($_SESSION['user_level'] != "employee")
 		header("Location: login.php");
 
 	

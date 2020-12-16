@@ -21,7 +21,7 @@
 
                 $_SESSION['uid'] = $uid;
                 $_SESSION['username'] = $username;
-                $_SESSION['user_level'] = "staff"; // 1 - admin 2 - staff
+                $_SESSION['user_level'] = "employee"; // 1 - admin 2 - staff
                 $_SESSION['user_role'] = $role;
             }
 
