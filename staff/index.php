@@ -7,20 +7,14 @@
   if($_SESSION['user_level'] != "staff")
     header("Location: login.php");
 
-  /*
-  echo $_SESSION['uid'];
-  echo $_SESSION['username'];
-  echo $_SESSION['user_level'];
-  */
-
   function getStatus () {
       global $sqlconnection;
-      $checkOnlineQuery = "SELECT status FROM tbl_staff WHERE staffID = {$_SESSION['uid']}";
+      $checkOnlineQuery = "SELECT empest FROM empleado WHERE empcod = {$_SESSION['uid']}";
 
       if ($result = $sqlconnection->query($checkOnlineQuery)) {
           
         if ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-          return $row['status'];
+          return $row['empest'];
         }
       }
 
@@ -43,7 +37,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel de Control - ConfiguroWeb Empleados</title>
+    <title>Panel de Control Empleados</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -63,7 +57,7 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | ConfiguroWeb</a>
+      <a class="navbar-brand mr-1" href="index.php">Restaurante | Empleado</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -94,7 +88,7 @@
         
         <?php
 
-          if ($_SESSION['user_role'] == "Mesero") {
+          if ($_SESSION['user_role'] == "Mozo") {
             echo '
             <li class="nav-item">
               <a class="nav-link" href="order.php">
@@ -104,7 +98,7 @@
           ';
           }
 
-          if ($_SESSION['user_role'] == "chef") {
+          if ($_SESSION['user_role'] == "Cocinero") {
             echo '
             <li class="nav-item">
               <a class="nav-link" href="kitchen.php">
@@ -149,7 +143,7 @@
                   <i class="fas fa-utensils"></i>
                   Las más recientes órdenes listas</div>
                 <div class="card-body">
-                	<table id="orderTable" class="table table-striped table-bordered width="100%" cellspacing="0">
+                	<table id="orderTable" class="table table-striped table-bordered width="100% cellspacing="0">
                 	</table>
                 </div>
                 <div class="card-footer small text-muted"><i>Se actualiza cada tres segundos</i></div>
@@ -159,7 +153,7 @@
             <div class="col-lg-3">
               <div class="card mb-3 text-center">
                 <div class="card-header">
-                  <i class="fas fa-chart-bar""></i>
+                  <i class="fas fa-chart-bar"></i>
                   Estado</div>
                 <div class="card-body">
                   Hola , <b><?php echo $_SESSION['username'] ?></b><hr>
@@ -175,16 +169,6 @@
 
         </div>
         <!-- /.container-fluid -->
-
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Sistema de Restaurante ConfiguroWeb 2020</span>
-            </div>
-          </div>
-        </footer>
-
       </div>
       <!-- /.content-wrapper -->
 

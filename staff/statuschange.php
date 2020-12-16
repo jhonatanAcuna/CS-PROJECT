@@ -20,7 +20,7 @@
 		if ($btnStatus== "Offline")
 			$status = "Online";
 		
-		$addOrderQuery = "UPDATE tbl_staff SET status = '{$status}' WHERE staffID = {$staffID};";
+		$addOrderQuery = "UPDATE empleado SET empest = '{$status}' WHERE empcod = {$staffID};";
 
 		if ($sqlconnection->query($addOrderQuery) === TRUE) {
 				header("Location: index.php");
