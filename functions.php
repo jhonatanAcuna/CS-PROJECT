@@ -1,12 +1,9 @@
 <?php
 
-	//established the connection between databse
 	require("dbconnection.php");
 
 	session_start();
 	
-	//insert user defined function here
-	// TODO - dynamic query
 	function getNumRowsQuery($query) {
 		global $sqlconnection;
 		if ($result = $sqlconnection->query($query))
@@ -22,9 +19,7 @@
 			while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
         		echo "\n", $row["itemID"], $row["menuID"], $row["menuItemName"], $row["price"];
     		}
-
-    		//print_r($result);
-			
+    		
 			return ($result);
 		}
 		else
@@ -41,7 +36,6 @@
 			
 			$res = $result->fetch_array();
 
-			//if currently no id in table
 			if ($res[$id] == NULL)
 				return 0;
 
@@ -62,7 +56,6 @@
 			
 			$res = $result->fetch_array();
 
-			//if currently no id in table
 			if ($res[$id] == NULL)
 				return 0;
 

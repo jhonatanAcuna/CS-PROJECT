@@ -19,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>ConfirugoWeb | Login de Empleados</title>
+    <title>Sesión Empleados</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +36,7 @@
 
     <div class="container">
       <div class="card card-login mx-auto mt-5">
-        <div class="card-header">ConfirugoWeb | Login de Empleados</div>
+        <div class="card-header">Inicio de Sesión Empleados</div>
         <div class="card-body">
           <form id="loginform">
             <div class="form-group">
