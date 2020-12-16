@@ -7,11 +7,11 @@
   if($_SESSION['user_level'] != "admin")
     header("Location: login.php");
 
-  if (!empty($_POST['role'])) {
-    $role = $sqlconnection->real_escape_string($_POST['role']);
-    $staffID = $sqlconnection->real_escape_string($_POST['staffID']);
+  if (!empty($_POST['rol'])) {
+    $rol = $sqlconnection->real_escape_string($_POST['rol']);
+    $empCod = $sqlconnection->real_escape_string($_POST['empcod']);
 
-    $updateRoleQuery = "UPDATE tbl_staff SET role = '{$role}'  WHERE staffID = {$staffID}  ";
+    $updateRoleQuery = "UPDATE empleado SET emprol = '{$rol}'  WHERE empcod = {$empCod}  ";
 
       if ($sqlconnection->query($updateRoleQuery) === TRUE) {
         echo "";
@@ -156,19 +156,19 @@
                           }
 
                           $empCount = 1;
-                          while($staff = $result->fetch_array(MYSQLI_ASSOC)) {
+                          while($employee = $result->fetch_array(MYSQLI_ASSOC)) {
                           ?>  
                           	<tr class="text-center">
                             	<td><?php echo $empCount++; ?></td>
-                            	<td><?php echo $staff['username']; ?></td>
+                            	<td><?php echo $employee['empuser']; ?></td>
 
                               <?php
 
-                            	if ($staff['status'] == "Online") {
+                            	if ($employee['empest'] == "Online") {
                                 echo "<td><span class=\"badge badge-success\">En línea</span></td>";
                               }
 
-                              if ($staff['status'] == "Offline") {
+                              if ($employee['empest'] == "Offline") {
                                 echo "<td><span class=\"badge badge-secondary\">Fuera de línea</span></td>";
                               }
 
@@ -176,25 +176,25 @@
 
                               <td>
                                 <form method="POST">
-                                <input type="hidden" name="staffID" value="<?php echo $staff['staffID']; ?>"/>
-                                <select name="role" class="form-control" onchange="this.form.submit()">
+                                <input type="hidden" name="empcod" value="<?php echo $employee['empcod']; ?>"/>
+                                <select name="rol" class="form-control" onchange="this.form.submit()">
                                   <?php
 
-                                  $roleQuery = "SELECT role FROM tbl_role";
+                                  $rolQuery = "SELECT rolnom FROM rol";
 
-                                  if ($res = $sqlconnection->query($roleQuery)) {
+                                  if ($res = $sqlconnection->query($rolQuery)) {
                                     
                                     if ($res->num_rows == 0) {
                                       echo "no role";
                                     }
 
-                                    while ($role = $res->fetch_array(MYSQLI_ASSOC)) {
+                                    while ($rol = $res->fetch_array(MYSQLI_ASSOC)) {
 
-                                      if ($role['role'] == $staff['role']) 
-                                        echo "<option selected='selected' value='".$staff['role']."'>".ucfirst($staff['role'])."</option>";
+                                      if ($rol['rolnom'] == $employee['emprol']) 
+                                        echo "<option selected='selected' value='".$employee['emprol']."'>".ucfirst($employee['emprol'])."</option>";
 
                                       else
-                                        echo "<option value='".$role['role']."'>".ucfirst($role['role'])."</option>";
+                                        echo "<option value='".$rol['rolnom']."'>".ucfirst($rol['rolnom'])."</option>";
                                     }
                                   }
 
@@ -204,7 +204,7 @@
                                 </form>
                               </td>
 
-                            	<td class="text-center"><a href="deletestaff.php?staffID=<?php echo $staff['staffID']; ?>" class="btn btn-sm btn-danger">Eliminar</a></td>
+                            	<td class="text-center"><a href="deleteEmployee.php?empCod=<?php echo $employee['empcod']; ?>" class="btn btn-sm btn-danger">Eliminar</a></td>
                         	</tr>
 
                           <?php 
@@ -220,7 +220,7 @@
 
                   </table>
                 </div>
-                <div class="card-footer small text-muted"><i>Contraseña predeterminada para nuevo usuario : 1234abcd..</i></div>
+                <div class="card-footer small text-muted"><i>Contraseña para nuevo usuario: empleado1234</i></div>
               </div>
             </div>
 
