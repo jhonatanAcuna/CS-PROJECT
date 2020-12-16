@@ -9,10 +9,10 @@
     header("Location: login.php");
 
 
-	if (isset($_POST['btnStatus']) && isset($_POST['staffid'])) {
+	if (isset($_POST['btnSta']) && isset($_POST['empcod'])) {
 
-		$btnStatus = $sqlconnection->real_escape_string($_POST['btnStatus']);
-		$staffID = $sqlconnection->real_escape_string($_POST['staffid']);
+		$btnStatus = $sqlconnection->real_escape_string($_POST['btnSta']);
+		$empcod = $sqlconnection->real_escape_string($_POST['empcod']);
 
 		if ($btnStatus== "Online")
 			$status = "Offline";
@@ -20,14 +20,14 @@
 		if ($btnStatus== "Offline")
 			$status = "Online";
 		
-		$addOrderQuery = "UPDATE empleado SET empest = '{$status}' WHERE empcod = {$staffID};";
+		$updateStatusQuery = "UPDATE empleado SET empest = '{$status}' WHERE empcod = {$empcod};";
 
-		if ($sqlconnection->query($addOrderQuery) === TRUE) {
+		if ($sqlconnection->query($updateStatusQuery) == TRUE) {
 				header("Location: index.php");
 			} 
 
 		else {
-				//handle
+
 				echo "someting wong";
 				echo $sqlconnection->error;
 
