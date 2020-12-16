@@ -5,7 +5,7 @@
 		if (!empty($_POST['categoria'])) {
 			$categoria = $sqlconnection->real_escape_string($_POST['categoria']);
 
-			$addCateQuery = "INSERT INTO categoria (nombre) VALUES ('{$categoria}')";
+			$addCateQuery = "INSERT INTO categoria (catnom) VALUES ('{$categoria}')";
 
 			if ($sqlconnection->query($addCateQuery) === TRUE) {
 				header("Location: categoria.php");

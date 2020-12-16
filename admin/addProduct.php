@@ -8,7 +8,7 @@
 			$price = $sqlconnection->real_escape_string($_POST['price']);
 			$cate = $sqlconnection->real_escape_string($_POST['category']);
 
-			$addProdQuery = "INSERT INTO productos (cate_cod ,nombre ,price) VALUES ({$cate} ,'{$prodName}' ,{$price})";
+			$addProdQuery = "INSERT INTO productos (catcod ,pronom ,proprice) VALUES ({$cate} ,'{$prodName}' ,{$price})";
 
 			if ($sqlconnection->query($addProdQuery) === TRUE) {
 				header("Location: categoria.php"); 

@@ -8,12 +8,12 @@
 			$categoria = $sqlconnection->real_escape_string($_POST['catID']);
 
 			//primeramente se borran los productos
-			$deleteCatItemQuery = "DELETE FROM productos WHERE cate_cod = {$categoria}";
+			$deleteProdQuery = "DELETE FROM productos WHERE catcod = {$categoria}";
 
-			if ($sqlconnection->query($deleteCatItemQuery) === TRUE) {
+			if ($sqlconnection->query($deleteProdQuery) === TRUE) {
 
 				//Luego eliminamos la categoria
-				$deleteCatQuery = "DELETE FROM categoria WHERE codigo = {$categoria}";
+				$deleteCatQuery = "DELETE FROM categoria WHERE catcod = {$categoria}";
 
 				if ($sqlconnection->query($deleteCatQuery) === TRUE) {
 					header("Location: categoria.php");//modifcar 

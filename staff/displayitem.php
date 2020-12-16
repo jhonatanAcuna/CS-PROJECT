@@ -11,7 +11,7 @@
 
 		$menuID = $sqlconnection->real_escape_string($_POST['btnMenuID']);
 
-		$menuItemQuery = "SELECT itemID,menuItemName FROM tbl_menuitem WHERE menuID = " . $menuID;
+		$menuItemQuery = "SELECT codigo,nombre FROM productos WHERE cate_cod = " . $menuID;
 
 		if ($menuItemResult = $sqlconnection->query($menuItemQuery)) {
 			if ($menuItemResult->num_rows > 0) {
@@ -27,14 +27,14 @@
 						echo "<tr>";
 					}
 
-					echo "<td><button style='margin-bottom:4px;white-space: normal;' class='btn btn-warning' onclick = 'setQty({$menuItemRow['itemID']})'>{$menuItemRow['menuItemName']}</button></td>";
+					echo "<td><button style='margin-bottom:4px;white-space: normal;' class='btn btn-warning' onclick = 'setQty({$menuItemRow['codigo']})'>{$menuItemRow['nombre']}</button></td>";
 
 					$counter++;
 				}
 			}
 
 			else {
-				echo "<tr><td>No item in this menu</td></tr>";
+				echo "<tr><td>No hay productos en esta Categoría</td></tr>";
 			}
 			
 		}

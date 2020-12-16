@@ -139,9 +139,9 @@
 					            <div class="card-header">
 
 					              <i class="fas fa-chart-area"></i>
-					              <?php echo $catRow["nombre"]; ?>
-  					              <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="<?php echo $catRow["nombre"];?>" data-catid="<?php echo $catRow["codigo"];?>">Eliminar</button> <!-- elimina categoria-->
-  					              <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addProdModal" data-category="<?php echo $catRow["nombre"];?>" data-catid="<?php echo $catRow["codigo"];?>">Agregar</button><!--agrega producto-->
+					              <?php echo $catRow["catnom"]; ?>
+  					              <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="<?php echo $catRow["catnom"];?>" data-catid="<?php echo $catRow["catcod"];?>">Eliminar</button> <!-- elimina categoria-->
+  					              <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addProdModal" data-category="<?php echo $catRow["catnom"];?>" data-catid="<?php echo $catRow["catcod"];?>">Agregar</button><!--agrega producto-->
 
 					          	</div>
 					            <div class="card-body">
@@ -154,7 +154,7 @@
 									<td>Opciones</td>
 								</tr>
 							<?php
-								$productQuery = "SELECT * FROM productos WHERE cate_cod = " . $catRow["codigo"];
+								$productQuery = "SELECT * FROM productos WHERE catcod = " . $catRow["catcod"];
 
 								if ($productResult = $sqlconnection->query($productQuery)) {
 
@@ -167,11 +167,11 @@
 
 										<tr>
 											<td><?php echo $productCount++; ?></td>
-			        						<td><?php echo $productRow["nombre"] ?></td>
-			        						<td><?php echo $productRow["price"] ?></td>
+			        						<td><?php echo $productRow["pronom"] ?></td>
+			        						<td><?php echo $productRow["proprice"] ?></td>
 			        						<td>
-			        							<a href="#editProductModal" data-toggle="modal" data-prodname="<?php echo $productRow["nombre"] ?>" data-prodprice="<?php echo $productRow["price"] ?>" data-catcod="<?php echo $catRow["codigo"] ?>" data-prodcot="<?php echo $productRow["codigo"] ?>">Editar </a>
-			        							<a href="deleteProduct.php?prodCod=<?php echo $productRow["codigo"] ?>&catCod=<?php echo $catRow["codigo"] ?>"> Eliminar</a></td> 
+			        							<a href="#editProductModal" data-toggle="modal" data-prodname="<?php echo $productRow["pronom"] ?>" data-prodprice="<?php echo $productRow["proprice"] ?>" data-catcod="<?php echo $catRow["catcod"] ?>" data-prodcot="<?php echo $productRow["procod"] ?>">Editar </a>
+			        							<a href="deleteProduct.php?prodCod=<?php echo $productRow["procod"] ?>&catCod=<?php echo $catRow["catcod"] ?>"> Eliminar</a></td> 
 										</tr>
 
 									<?php

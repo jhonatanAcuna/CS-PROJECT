@@ -14,7 +14,7 @@
 		$del_catcod = $sqlconnection->real_escape_string($_GET['catCod']);
 		$del_prodcod = $sqlconnection->real_escape_string($_GET['prodCod']);
 
-		$deleteProdQuery = "DELETE FROM productos WHERE cate_cod = {$del_catcod} AND codigo = {$del_prodcod}";
+		$deleteProdQuery = "DELETE FROM productos WHERE catcod = {$del_catcod} AND procod = {$del_prodcod}";
 
 		if ($sqlconnection->query($deleteProdQuery) === TRUE) {
 				header("Location: categoria.php"); 

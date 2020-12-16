@@ -4,7 +4,6 @@
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
-	//$dbname = "fosdb";
 	$dbname = "restaurant";
 
 ?>

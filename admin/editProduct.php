@@ -17,7 +17,7 @@
 			$prodName = $sqlconnection->real_escape_string($_POST['prodName']);
 			$prodPrice = $sqlconnection->real_escape_string($_POST['prodPrice']);
 
-			$updateProdQuery = "UPDATE productos SET nombre = '{$prodName}' , price = {$prodPrice} WHERE cate_cod = {$cateCod} AND codigo = {$prodCod} ";
+			$updateProdQuery = "UPDATE productos SET pronom = '{$prodName}' , proprice = {$prodPrice} WHERE catcod = {$cateCod} AND procod = {$prodCod} ";
 
 			if ($sqlconnection->query($updateProdQuery) === TRUE) {
 				header("Location: categoria.php"); 
