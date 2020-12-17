@@ -151,18 +151,18 @@
                     </tr>
 
                     <?php 
-                      $displayStaffQuery = "SELECT username,status FROM tbl_staff"; // falta aumentar empleado tablas
+                      $displayStaffQuery = "SELECT empuser,empest FROM empleado"; // falta aumentar empleado tablas
 
                           if ($result = $sqlconnection->query($displayStaffQuery)) {
                             while($staff = $result->fetch_array(MYSQLI_ASSOC)) {
                               echo "<tr>";
-                              echo "<td>{$staff['username']}</td>";
+                              echo "<td>{$staff['empuser']}</td>";
 
-                              if ($staff['status'] == "Online") {
+                              if ($staff['empest'] == "Online") {
                                 echo "<td><span class=\"badge badge-success\">Activo</span></td>";
                               }
 
-                              if ($staff['status'] == "Offline") {
+                              if ($staff['empest'] == "Offline") {
                                 echo "<td><span class=\"badge badge-secondary\">Inactivo</span></td>";
                               }
 
@@ -226,7 +226,7 @@
     });
 
     function refreshTableOrder() {
-      $( "#tblBodyCurrentOrder" ).load( "displayorder.php?cmd=display" );
+      $( "#tblBodyCurrentOrder" ).load( "listOrder.php?cmd=display" );
     }
 
     //refresh order current list every 3 secs
