@@ -11,25 +11,25 @@
 
 	if (isset($_POST['sentorder'])) {
 
-		if (isset($_POST['itemID']) && isset($_POST['itemqty'])) {
+		if (isset($_POST['prodcod']) && isset($_POST['prodqty'])) {
 
-			$arrItemID = $_POST['itemID'];
-			$arrItemQty = $_POST['itemqty'];			
+			$arrProd = $_POST['prodcod'];
+			$arrProdQty = $_POST['prodqty'];			
 
 			//check pair of the array have same element number
-			if (count($arrItemID) == count($arrItemQty)) {				
-				$arrlength = count($arrItemID);
+			if (count($arrProd) == count($arrProdQty)) {				
+				$arrlength = count($arrProd);
 
 				//add new id
-				$currentOrderID = getLastID("pedcod","pedido") + 1;
+				$currentOrderCod = getLastID("pedcod","pedido") + 1;
 
-				insertOrderQuery($currentOrderID);
+				insertOrderQuery($currentOrderCod);
 
 				for ($i=0; $i < $arrlength; $i++) { 
-					insertOrderDetailQuery($currentOrderID,$arrItemID[$i] ,$arrItemQty[$i]);
+					insertOrderDetailQuery($currentOrderCod,$arrProd[$i] ,$arrProdQty[$i]);
 				}
 
-				updateTotal($currentOrderID);
+				updateTotal($currentOrderCod);
 
 				//completed insert current order
 				header("Location: index.php");
@@ -42,9 +42,9 @@
 		}	
 	}
 
-	function insertOrderDetailQuery($orderID,$itemID,$quantity) {
+	function insertOrderDetailQuery($orderCod,$prodCod,$quantity) {
 		global $sqlconnection;
-		$addOrderQuery = "INSERT INTO pedidodetalle (pedcod ,procod ,peddetqty) VALUES ('{$orderID}', '{$itemID}' ,{$quantity})";
+		$addOrderQuery = "INSERT INTO pedidodetalle (pedcod ,procod ,peddetqty) VALUES ('{$orderCod}', '{$prodCod}' ,{$quantity})";
 
 		if ($sqlconnection->query($addOrderQuery) === TRUE) {
 				echo "inserted.";
@@ -58,9 +58,9 @@
 		}
 	}
 
-	function insertOrderQuery($orderID) {
+	function insertOrderQuery($orderCod) {
 		global $sqlconnection;
-		$addOrderQuery = "INSERT INTO pedido (pedcod ,pedest ,peddate) VALUES ('{$orderID}' ,'waiting' ,CURDATE() )";
+		$addOrderQuery = "INSERT INTO pedido (pedcod ,pedest ,peddate) VALUES ('{$orderCod}' ,'waiting' ,CURDATE() )";
 
 		if ($sqlconnection->query($addOrderQuery) === TRUE) {
 				echo "inserted.";

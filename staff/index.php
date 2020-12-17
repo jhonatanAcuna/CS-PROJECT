@@ -59,7 +59,7 @@
 
       <a class="navbar-brand mr-1" href="index.php">Restaurante | Empleado</a>
 
-      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="">
         <i class="fas fa-bars"></i>
       </button>
 
@@ -103,7 +103,7 @@
             <li class="nav-item">
               <a class="nav-link" href="kitchen.php">
                 <i class="fas fa-fw fa-utensils"></i>
-                <span>Kitchen</span></a>
+                <span>Cocina</span></a>
             </li>
             ';
           }

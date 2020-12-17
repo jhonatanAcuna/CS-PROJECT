@@ -7,7 +7,7 @@
   if($_SESSION['user_level'] != "employee")
     header("Location: login.php");
 
-  if($_SESSION['user_role'] != "chef") {
+  if($_SESSION['user_role'] != "Cocinero") {
     echo ("<script>window.alert('Available for chef only!'); window.location.href='index.php';</script>");
     exit();
   }
@@ -25,7 +25,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard - FOS Staff</title>
+    <title>Cocina</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -45,7 +45,7 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | ConfiguroWeb</a>
+      <a class="navbar-brand mr-1" href="index.php">Restaurante | Cocinero</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -86,7 +86,7 @@
           ';
           }
 
-          if ($_SESSION['user_role'] == "chef") {
+          if ($_SESSION['user_role'] == "Cocinero") {
             echo '
             <li class="nav-item">
               <a class="nav-link" href="kitchen.php">

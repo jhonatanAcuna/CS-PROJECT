@@ -52,10 +52,10 @@
 				if ($prodRow = $prodResult->fetch_array(MYSQLI_ASSOC)) {
 					echo "
 					<tr>
-						<input type = 'hidden' name = 'itemID[]' value ='".$prodRow['procod']."'/>
+						<input type = 'hidden' name = 'prodcod[]' value ='".$prodRow['procod']."'/>
 						<td>".$prodRow['catnom']." : ".$prodRow['pronom']."</td>
 						<td>".$prodRow['proprice']."</td>
-						<td><input type = 'number' required='required' min='1' max='50' name = 'itemqty[]' width='10px' class='form-control' value ='".$quantity."'/></td>
+						<td><input type = 'number' required='required' min='1' max='50' name = 'prodqty[]' width='10px' class='form-control' value ='".$quantity."'/></td>
 						<td>" . number_format((float)$prodRow['proprice'] * $quantity, 2, '.', '') . "</td>
 						<td><button class='btn btn-danger deleteBtn' type='button' onclick='deleteRow()'><i class='fas fa-times'></i></button></td>
 					</tr>
