@@ -105,12 +105,6 @@
 
 							echo "</td>";
 
-							/*
-							echo "<td rowspan=".$rowspan."><button class='btn btn-danger'>".$orderRow['status']."</button>";
-							//temporary
-							echo "<button class='btn btn-primary'>preparando</button>";
-							echo "<button class='btn btn-success'>listo</button></td>";
-							*/
 						}
 
 						echo "</tr>";
@@ -124,16 +118,16 @@
 	//display current ready order list in staff index
 	if ($_GET['cmd'] == 'currentready') {
 
-		$latestReadyQuery = "SELECT orderID FROM tbl_order WHERE status IN ( 'finish','ready') ";
+		$latestReadyQuery = "SELECT pedcod FROM pedido WHERE pedest IN ( 'finish','ready') ";
 
 		if ($result = $sqlconnection->query($latestReadyQuery)) {
 
 			if ($result->num_rows == 0) {
-				echo "<tr><td class='text-center'>Sin órdenes listas para servir. </td></tr>";
+				echo "<tr><td class='text-center'>Sin ordenes Pendientes </td></tr>";
 			}
 
             while($latestOrder = $result->fetch_array(MYSQLI_ASSOC)) {
-            	echo "<tr><td><i class='fas fa-bullhorn' style='color:green;'></i><b> Orden #".$latestOrder['orderID']."</b> lista para servir.<a href='editstatus.php?orderID=".$latestOrder['orderID']."'><i class='fas fa-check float-right'></i></a></td></tr>";
+            	echo "<tr><td><i class='fas fa-bullhorn' style='color:green;'></i><b> Orden #".$latestOrder['pedcod']."</b> lista para servir.<a href='editstatus.php?pedcod=".$latestOrder['pedcod']."'><i class='fas fa-check float-right'></i></a></td></tr>";
             }
         }
 	}

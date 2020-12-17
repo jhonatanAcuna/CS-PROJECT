@@ -141,7 +141,7 @@
               <div class="card mb-3">
                 <div class="card-header">
                   <i class="fas fa-utensils"></i>
-                  Las más recientes órdenes listas</div>
+                  Ordenes listas</div>
                 <div class="card-body">
                 	<table id="orderTable" class="table table-striped table-bordered width="100% cellspacing="0">
                 	</table>
