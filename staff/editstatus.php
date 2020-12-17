@@ -12,7 +12,7 @@
 		$status = $sqlconnection->real_escape_string($_POST['status']);
 		$orderID = $sqlconnection->real_escape_string($_POST['orderID']);
 
-		$addOrderQuery = "UPDATE tbl_order SET status = '{$status}' WHERE orderID = {$orderID};";
+		$addOrderQuery = "UPDATE pedido SET pedest = '{$status}' WHERE pedcod = {$orderID};";
 
 		if ($sqlconnection->query($addOrderQuery) === TRUE) {
 				echo "inserted.";
@@ -32,7 +32,7 @@
 		$status = "Completed";
 		$orderID = $sqlconnection->real_escape_string($_GET['orderID']);
 
-		$addOrderQuery = "UPDATE tbl_order SET status = '{$status}' WHERE orderID = {$orderID};";
+		$addOrderQuery = "UPDATE pedido SET pedest = '{$status}' WHERE pedcod = {$orderID};";
 
 		if ($sqlconnection->query($addOrderQuery) === TRUE) {
 				echo "inserted.";

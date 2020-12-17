@@ -218,7 +218,7 @@
     });
 
     function refreshTableOrder() {
-      $( "#orderTable" ).load( "displayorder.php?cmd=currentready" );
+      $( "#orderTable" ).load( "listOrder.php?cmd=currentready" );
     }
 
     //refresh order current list every 3 secs

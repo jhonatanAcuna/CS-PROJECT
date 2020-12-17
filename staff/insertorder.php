@@ -35,10 +35,6 @@
 				header("Location: index.php");
 				exit();
 			}
-
-			else {
-				echo "xD";
-			}
 		}	
 	}
 
