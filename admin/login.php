@@ -42,7 +42,7 @@ if ((isset($_SESSION['uid']) && isset($_SESSION['username']) && isset($_SESSION[
         </div>
         <div class="login100-form">
           <span class="login100-form-title">
-            Member Login
+            ADMINISTRADOR
           </span>
           <div class="card-body">
             <form id="loginform">
