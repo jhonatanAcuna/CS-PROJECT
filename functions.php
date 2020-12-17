@@ -136,21 +136,22 @@
 		global $sqlconnection;
 
 		$query = "
-			UPDATE tbl_order o
+			UPDATE pedido o
 			INNER JOIN (
-			    SELECT SUM(OD.quantity*mi.price) AS total
-			        FROM tbl_order O
-			        LEFT JOIN tbl_orderdetail OD
-			        ON O.orderID = OD.orderID
-			        LEFT JOIN tbl_menuitem MI
-			        ON OD.itemID = MI.itemID
-			        LEFT JOIN tbl_menu M
-			        ON MI.menuID = M.menuID
+			    SELECT SUM(OD.peddetqty*mi.proprice) AS total
+			        FROM pedido O
+			        LEFT JOIN pedidodetalle OD
+			        ON O.pedcod = OD.pedcod
+			        LEFT JOIN productos MI
+			        ON OD.procod = MI.procod
+			        LEFT JOIN categoria M
+			        ON MI.catcod = M.catcod
 			        
-			        WHERE o.orderID = ".$orderID."
+			        WHERE o.pedcod = ".$orderID."
 			) x
-			SET o.total = x.total
-			WHERE o.orderID = ".$orderID."
+			SET o.pedtot = x.total
+
+			WHERE o.pedcod = ".$orderID."
 		";
 
 		if ($sqlconnection->query($query) === TRUE) {

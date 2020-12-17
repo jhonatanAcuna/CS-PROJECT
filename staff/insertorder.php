@@ -21,7 +21,7 @@
 				$arrlength = count($arrItemID);
 
 				//add new id
-				$currentOrderID = getLastID("orderID","tbl_order") + 1;
+				$currentOrderID = getLastID("pedcod","pedido") + 1;
 
 				insertOrderQuery($currentOrderID);
 
@@ -44,7 +44,7 @@
 
 	function insertOrderDetailQuery($orderID,$itemID,$quantity) {
 		global $sqlconnection;
-		$addOrderQuery = "INSERT INTO tbl_orderdetail (orderID ,itemID ,quantity) VALUES ('{$orderID}', '{$itemID}' ,{$quantity})";
+		$addOrderQuery = "INSERT INTO pedidodetalle (pedcod ,procod ,peddetqty) VALUES ('{$orderID}', '{$itemID}' ,{$quantity})";
 
 		if ($sqlconnection->query($addOrderQuery) === TRUE) {
 				echo "inserted.";
@@ -60,7 +60,7 @@
 
 	function insertOrderQuery($orderID) {
 		global $sqlconnection;
-		$addOrderQuery = "INSERT INTO tbl_order (orderID ,status ,order_date) VALUES ('{$orderID}' ,'waiting' ,CURDATE() )";
+		$addOrderQuery = "INSERT INTO pedido (pedcod ,pedest ,peddate) VALUES ('{$orderID}' ,'waiting' ,CURDATE() )";
 
 		if ($sqlconnection->query($addOrderQuery) === TRUE) {
 				echo "inserted.";
