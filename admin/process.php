@@ -21,7 +21,7 @@
                     $_SESSION['uid'] = $uid;
                     $_SESSION['username'] = $user;
                     $_SESSION['user_level'] = "admin";
-
+                    echo "correct";
                 }
 
                 else {
