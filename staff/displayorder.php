@@ -16,15 +16,15 @@
 	if ($_GET['cmd'] == 'currentorder')	{
 		
 		$displayOrderQuery =  "
-					SELECT o.orderID, m.menuName, OD.itemID,MI.menuItemName,OD.quantity,O.status
-					FROM tbl_order O
-					LEFT JOIN tbl_orderdetail OD
-					ON O.orderID = OD.orderID
-					LEFT JOIN tbl_menuitem MI
-					ON OD.itemID = MI.itemID
-					LEFT JOIN tbl_menu M
-					ON MI.menuID = M.menuID
-					WHERE O.status 
+					SELECT o.pedcod, m.catnom, OD.procod,MI.pronom,OD.peddetqty,O.pedest
+					FROM pedido O
+					LEFT JOIN pedidodetalle OD
+					ON O.pedcod = OD.pedcod
+					LEFT JOIN productos MI
+					ON OD.procod = MI.procod
+					LEFT JOIN categoria M
+					ON MI.catcod = M.catcod
+					WHERE O.pedest 
 					IN ( 'waiting','preparing','ready')
 				";
 
