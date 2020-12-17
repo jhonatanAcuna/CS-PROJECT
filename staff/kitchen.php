@@ -127,7 +127,7 @@
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-utensils"></i>
-              Listado de Últimas Órdenes Recibidas</div>
+                Órdenes Recibidas</div>
             <div class="card-body">
             	<table id="tblCurrentOrder" class="table table-bordered text-center" width="100%" cellspacing="0">
 					<thead>
@@ -196,7 +196,7 @@
 		});
 
 		function refreshTableOrder() {
-			$( "#tblBodyCurrentOrder" ).load( "displayorder.php?cmd=currentorder" );
+			$( "#tblBodyCurrentOrder" ).load( "listOrder.php?cmd=currentorder" );
 		}
 
 
