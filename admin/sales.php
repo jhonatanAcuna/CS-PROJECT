@@ -19,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Ventas | ConfirugoWeb</title>
+    <title>Reporte Ventas</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -39,7 +39,7 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | ConfiguroWeb</a>
+      <a class="navbar-brand mr-1" href="index.php">Restaurante | Reporte Ventas</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -69,9 +69,9 @@
 
         
         <li class="nav-item">
-          <a class="nav-link" href="menu.php">
+          <a class="nav-link" href="categoria.php">
             <i class="fas fa-fw fa-utensils"></i>
-            <span>Menú</span></a>
+            <span>Categoria</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="sales.php">
@@ -80,7 +80,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="staff.php">
+          <a class="nav-link" href="Employees.php">
             <i class="fas fa-fw fa-user-circle"></i>
             <span>Empleados</span>
           </a>
@@ -110,31 +110,31 @@
           <!-- Page Content -->
           <h1>Administración de Ventas</h1>
           <hr>
-          <p>Todos los datos de venta se encuentran aquí.</p>
+          <p>Reporte de Ventas</p>
 
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-chart-area"></i>
-              Estadística de Ganancias de Ventas
+             Tabla de Ganancias
             </div>
             <div class="card-body">
               <table class="table table-bordered" width="100%" cellspacing="0">
                 <tbody>
                   <tr>
                     <td>Hoy</td>
-                    <td>COP <?php echo getSalesGrandTotal("DAY"); ?></td>
+                    <td><?php echo getSalesGrandTotal("DAY"); ?></td>
                   </tr>
                   <tr>
                     <td>Esta Semana</td>
-                    <td>COP <?php echo getSalesGrandTotal("WEEK"); ?></td>
+                    <td><?php echo getSalesGrandTotal("WEEK"); ?></td>
                   </tr>
                   <tr>
                     <td>Este Mes</td>
-                    <td>COP <?php echo getSalesGrandTotal("MONTH"); ?></td>
+                    <td><?php echo getSalesGrandTotal("MONTH"); ?></td>
                   </tr>
                   <tr class="table-info">
                     <td><b>Todo el Tiempo</b></td>
-                    <td><b>COP <?php echo getSalesGrandTotal("ALLTIME"); ?></b></td>
+                    <td><b><?php echo getSalesGrandTotal("ALLTIME"); ?></b></td>
                   </tr>
                 </tbody>
               </table>
@@ -153,21 +153,21 @@
                       <th>Nombre de Producto</th>
                       <th class='text-center'>Cantidad</th>
                       <th class='text-center'>Estado</th>
-                      <th class='text-center'>Total (COP)</th>
+                      <th class='text-center'>Total</th>
                       <th class='text-center'>Fecha</th>
                     </thead>
                     
                     <tbody id="tblBodyCurrentOrder">
                       <?php 
                       $displayOrderQuery =  "
-                        SELECT o.orderID, m.menuName, OD.itemID,MI.menuItemName,OD.quantity,O.status,mi.price ,o.order_date
-                        FROM tbl_order O
-                        LEFT JOIN tbl_orderdetail OD
-                        ON O.orderID = OD.orderID
-                        LEFT JOIN tbl_menuitem MI
-                        ON OD.itemID = MI.itemID
-                        LEFT JOIN tbl_menu M
-                        ON MI.menuID = M.menuID
+                        SELECT o.pedcod, m.catnom, OD.procod,MI.pronom,OD.peddetqty,O.pedest,mi.proprice ,o.peddate
+                        FROM pedido O
+                        LEFT JOIN pedidodetalle OD
+                        ON O.pedcod = OD.pedcod
+                        LEFT JOIN productos MI
+                        ON OD.procod = MI.procod
+                        LEFT JOIN categoria M
+                        ON MI.catcod = M.catcod
                         ";
 
                       if ($orderResult = $sqlconnection->query($displayOrderQuery)) {
@@ -178,14 +178,14 @@
                         //if no order
                         if ($orderResult->num_rows == 0) {
 
-                          echo "<tr><td class='text-center' colspan='7' >Actualmente no hay pedido en este momento. </td></tr>";
+                          echo "<tr><td class='text-center' colspan='7' >Sin pedidos Actualmente </td></tr>";
                         }
 
                         else {
                           while($orderRow = $orderResult->fetch_array(MYSQLI_ASSOC)) {
 
                             //basically count rowspan so no repetitive display id in each table row
-                            $rowspan = getCountID($orderRow["orderID"],"orderID","tbl_orderdetail"); 
+                            $rowspan = getCountID($orderRow["pedcod"],"pedcod","pedidodetalle"); 
 
                             if ($currentspan == 0) {
                               $currentspan = $rowspan;
@@ -193,25 +193,25 @@
                             }
 
                             //get total for each order id
-                            $total += ($orderRow['price']*$orderRow['quantity']);
+                            $total += ($orderRow['proprice']*$orderRow['peddetqty']);
 
                             echo "<tr>";
 
                             if ($currentspan == $rowspan) {
-                              echo "<td rowspan=".$rowspan."># ".$orderRow['orderID']."</td>";
+                              echo "<td rowspan=".$rowspan."># ".$orderRow['pedcod']."</td>";
                             }
 
                             echo "
-                              <td>".$orderRow['menuName']."</td>
-                              <td>".$orderRow['menuItemName']."</td>
-                              <td class='text-center'>".$orderRow['quantity']."</td>
+                              <td>".$orderRow['catnom']."</td>
+                              <td>".$orderRow['pronom']."</td>
+                              <td class='text-center'>".$orderRow['peddetqty']."</td>
                             ";
 
                             if ($currentspan == $rowspan) {
 
                               $color = "badge";
 
-                              switch ($orderRow['status']) {
+                              switch ($orderRow['pedest']) {
                                 case 'waiting':
                                   $color = "badge badge-warning";
                                   break;
@@ -237,11 +237,11 @@
                                   break;
                               }
 
-                              echo "<td class='text-center' rowspan=".$rowspan."><span class='{$color}'>".$orderRow['status']."</span></td>";
+                              echo "<td class='text-center' rowspan=".$rowspan."><span class='{$color}'>".$orderRow['pedest']."</span></td>";
 
-                              echo "<td rowspan=".$rowspan." class='text-center'>".getSalesTotal($orderRow['orderID'])."</td>";
+                              echo "<td rowspan=".$rowspan." class='text-center'>".getSalesTotal($orderRow['pedcod'])."</td>";
 
-                              echo "<td rowspan=".$rowspan." class='text-center'>".$orderRow['order_date']."</td>";
+                              echo "<td rowspan=".$rowspan." class='text-center'>".$orderRow['peddate']."</td>";
 
                             
                               echo "</td>";
@@ -262,16 +262,6 @@
           </div>
 
         <!-- /.container-fluid -->
-
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Sistema de Restaurante ConfiguroWeb 2020</span>
-            </div>
-          </div>
-        </footer>
-
       </div>
       <!-- /.content-wrapper -->
 

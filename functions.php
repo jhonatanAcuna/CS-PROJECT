@@ -71,7 +71,7 @@
 		global $sqlconnection;
 		$total = null;
 
-		$query = "SELECT total FROM tbl_order WHERE orderID = ".$orderID;
+		$query = "SELECT pedtot FROM pedido WHERE pedcod = ".$orderID;
 
 		if ($result = $sqlconnection->query($query)) {
 		
@@ -97,18 +97,18 @@
 
 		if ($duration == "ALLTIME") {
 			$query = "
-					SELECT SUM(total) as grandtotal
-					FROM tbl_order
+					SELECT SUM(pedtot) as grandtotal
+					FROM pedido
 					";
 		}
 
 		else if ($duration == ("DAY" || "MONTH" || "WEEK")) {
 
 			$query = "
-					SELECT SUM(total) as grandtotal
-					FROM tbl_order
+					SELECT SUM(pedtot) as grandtotal
+					FROM pedido
 
-					WHERE order_date > DATE_SUB(NOW(), INTERVAL 1 ".$duration.")
+					WHERE peddate > DATE_SUB(NOW(), INTERVAL 1 ".$duration.")
 					";
 		}
 
