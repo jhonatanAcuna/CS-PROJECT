@@ -1,19 +1,19 @@
 
 <?php
-	include("../functions.php");
+include("../functions.php");
 
-	if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
-		header("Location: login.php");
+if ((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])))
+	header("Location: login.php");
 
-	if($_SESSION['user_level'] != "admin")
-		header("Location: login.php");
+if ($_SESSION['user_level'] != "admin")
+	header("Location: login.php");
 
-	if(empty($_GET['cmd'])) 
-		die();
-	if ($_GET['cmd'] != 'display')	
-		die();
+if (empty($_GET['cmd']))
+	die();
+if ($_GET['cmd'] != 'display')
+	die();
 
-	$displayOrderQuery =  "
+$displayOrderQuery =  "
 			SELECT o.pedcod, m.catnom, OD.procod,MI.pronom,OD.peddetqty,O.pedest
 			FROM pedido O
 			LEFT JOIN pedidodetalle OD
@@ -26,69 +26,66 @@
 			IN ( 'waiting','preparing','ready','finish')
 		";
 
-	if ($orderResult = $sqlconnection->query($displayOrderQuery)) {
-			
-		$currentspan = 0;
+if ($orderResult = $sqlconnection->query($displayOrderQuery)) {
 
-		//if no order
-		if ($orderResult->num_rows == 0) {
+	$currentspan = 0;
 
-			echo "<tr><td class='text-center' colspan='7' >Sin ordenes por el momento </td></tr>";
-		}
+	//if no order
+	if ($orderResult->num_rows == 0) {
 
-		else {
-			while($orderRow = $orderResult->fetch_array(MYSQLI_ASSOC)) {
+		echo "<tr><td class='text-center' colspan='7' >Sin ordenes por el momento </td></tr>";
+	} else {
+		while ($orderRow = $orderResult->fetch_array(MYSQLI_ASSOC)) {
 
-				//basically count rowspan so no repetitive display id in each table row
-				$rowspan = getCountID($orderRow["pedcod"],"pedcod","pedidodetalle"); 
+			//basically count rowspan so no repetitive display id in each table row
+			$rowspan = getCountID($orderRow["pedcod"], "pedcod", "pedidodetalle");
 
-				if ($currentspan == 0)
-					$currentspan = $rowspan;
+			if ($currentspan == 0)
+				$currentspan = $rowspan;
 
-				echo "<tr>";
+			echo "<tr>";
 
-				if ($currentspan == $rowspan) {
-					echo "<td class='text-center' rowspan=".$rowspan."># ".$orderRow['pedcod']."</td>";
-				}
+			if ($currentspan == $rowspan) {
+				echo "<td class='text-center' rowspan=" . $rowspan . "># " . $orderRow['pedcod'] . "</td>";
+			}
 
-				echo "
-					<td>".$orderRow['catnom']."</td>
-					<td>".$orderRow['pronom']."</td>
-					<td class='text-center'>".$orderRow['peddetqty']."</td>
+			echo "
+					<td>" . $orderRow['catnom'] . "</td>
+					<td>" . $orderRow['pronom'] . "</td>
+					<td class='text-center'>" . $orderRow['peddetqty'] . "</td>
 				";
 
-				if ($currentspan == $rowspan) {
+			if ($currentspan == $rowspan) {
 
-					$color = "badge badge-warning";
-					switch ($orderRow['pedest']) {
-						case 'waiting':
-							$color = "badge badge-warning";
-							break;
-						
-						case 'preparing':
-							$color = "badge badge-primary";
-							break;
+				$color = "badge badge-warning";
+				switch ($orderRow['pedest']) {
+					case 'waiting':
+						$color = "badge badge-warning";
+						break;
 
-						case 'ready':
-							$color = "badge badge-success";
-							break;
-							
-						case 'finish':
-							$color = "badge badge-success";
-							break;
-					}
+					case 'preparing':
+						$color = "badge badge-primary";
+						break;
 
-					echo "<td class='text-center' rowspan=".$rowspan."><span class='{$color}'>".$orderRow['pedest']."</span></td>";
-				
-					echo "</td>";
+					case 'ready':
+						$color = "badge badge-success";
+						break;
 
+					case 'finish':
+						$color = "badge badge-success";
+						break;
 				}
 
-				echo "</tr>";
+				echo "<td class='text-center' rowspan=" . $rowspan . "><span class='{$color}'>" . $orderRow['pedest'] . "</span></td>";
 
-				$currentspan--;
+				echo "</td>";
 			}
-		}	
+
+			echo "</tr>";
+
+			$currentspan--;
+		}
 	}
+}
 
 ?>

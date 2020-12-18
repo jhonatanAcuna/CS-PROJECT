@@ -1,165 +1,163 @@
 <?php
-  include("../functions.php");
+include("../functions.php");
 
-  if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
-    header("Location: login.php");
+if ((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])))
+  header("Location: login.php");
 
-  if($_SESSION['user_level'] != "admin")
-    header("Location: login.php");
+if ($_SESSION['user_level'] != "admin")
+  header("Location: login.php");
 
 ?>
 <!DOCTYPE html>
 <html lang="es">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>Reporte Ventas</title>
+  <title>Reporte Ventas</title>
 
-    <!-- Bootstrap core CSS-->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS-->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-    <!-- Page level plugin CSS-->
-    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <!-- Page level plugin CSS-->
+  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
-    <!-- Custom styles for this template-->
-    <link href="css/sb-admin.css" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet">
 
-  </head>
+</head>
 
-  <body id="page-top">
+<body id="page-top">
 
-    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | Reporte Ventas</a>
+    <a class="navbar-brand mr-1" href="index.php">Restaurante | Reporte Ventas</a>
 
-      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i>
-      </button>
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+      <i class="fas fa-bars"></i>
+    </button>
 
-      <!-- Navbar -->
-      <ul class="navbar-nav ml-auto ml-md-0">
-        <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-circle fa-fw"></i>
-          </a>
-        </li>
-      </ul>
 
-    </nav>
+  </nav>
 
-    <div id="wrapper">
+  <div id="wrapper">
 
-      <!------------------ Sidebar ------------------->
-      <ul class="sidebar navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.php">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Panel de Control</span>
-          </a>
-        </li>
+    <!------------------ Sidebar ------------------->
+    <ul class="sidebar navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="index.php">
+          <img src="images/Admin2.png" width="70" height="70">
+          <span>Administrador</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="index.php">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Panel de Control</span>
+        </a>
+      </li>
 
-        
-        <li class="nav-item">
-          <a class="nav-link" href="categoria.php">
-            <i class="fas fa-fw fa-utensils"></i>
-            <span>Categoria</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="sales.php">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Ventas</span></a>
-        </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="Employees.php">
-            <i class="fas fa-fw fa-user-circle"></i>
-            <span>Empleados</span>
-          </a>
-        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="categoria.php">
+          <i class="fas fa-fw fa-utensils"></i>
+          <span>Categoria</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="sales.php">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Ventas</span></a>
+      </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
-            <i class="fas fa-fw fa-power-off"></i>
-            <span>Cerrar Sesión</span>
-          </a>
-        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Employees.php">
+          <i class="fas fa-fw fa-user-circle"></i>
+          <span>Empleados</span>
+        </a>
+      </li>
 
-      </ul>
+      <li class="nav-item">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
+          <i class="fas fa-fw fa-power-off"></i>
+          <span>Cerrar Sesión</span>
+        </a>
+      </li>
 
-      <div id="content-wrapper">
+    </ul>
 
-        <div class="container-fluid">
+    <div id="content-wrapper">
 
-          <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="index.php">Panel de Control</a>
-            </li>
-            <li class="breadcrumb-item active">Ventas</li>
-          </ol>
+      <div class="container-fluid">
 
-          <!-- Page Content -->
-          <h1>Administración de Ventas</h1>
-          <hr>
-          <p>Reporte de Ventas</p>
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.php">Panel de Control</a>
+          </li>
+          <li class="breadcrumb-item active">Ventas</li>
+        </ol>
 
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-chart-area"></i>
-             Tabla de Ganancias
-            </div>
-            <div class="card-body">
-              <table class="table table-bordered" width="100%" cellspacing="0">
-                <tbody>
-                  <tr>
-                    <td>Hoy</td>
-                    <td><?php echo getSalesGrandTotal("DAY"); ?></td>
-                  </tr>
-                  <tr>
-                    <td>Esta Semana</td>
-                    <td><?php echo getSalesGrandTotal("WEEK"); ?></td>
-                  </tr>
-                  <tr>
-                    <td>Este Mes</td>
-                    <td><?php echo getSalesGrandTotal("MONTH"); ?></td>
-                  </tr>
-                  <tr class="table-info">
-                    <td><b>Todo el Tiempo</b></td>
-                    <td><b><?php echo getSalesGrandTotal("ALLTIME"); ?></b></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+        <!-- Page Content -->
+        <h1>Administración de Ventas</h1>
+        <hr>
+        <p>Reporte de Ventas</p>
+
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Tabla de Ganancias
           </div>
+          <div class="card-body">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+              <tbody>
+                <tr>
+                  <td>Hoy</td>
+                  <td><?php echo getSalesGrandTotal("DAY"); ?></td>
+                </tr>
+                <tr>
+                  <td>Esta Semana</td>
+                  <td><?php echo getSalesGrandTotal("WEEK"); ?></td>
+                </tr>
+                <tr>
+                  <td>Este Mes</td>
+                  <td><?php echo getSalesGrandTotal("MONTH"); ?></td>
+                </tr>
+                <tr class="table-info">
+                  <td><b>Todo el Tiempo</b></td>
+                  <td><b><?php echo getSalesGrandTotal("ALLTIME"); ?></b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-chart-area"></i>
-              Lista de Órdenes de Ventas</div>
-            <div class="card-body">
-              <table id="tblCurrentOrder" class="table table-bordered" width="100%" cellspacing="0">
-                    <thead>
-                      <th># Orden</th>
-                      <th>Menú</th>
-                      <th>Nombre de Producto</th>
-                      <th class='text-center'>Cantidad</th>
-                      <th class='text-center'>Estado</th>
-                      <th class='text-center'>Total</th>
-                      <th class='text-center'>Fecha</th>
-                    </thead>
-                    
-                    <tbody id="tblBodyCurrentOrder">
-                      <?php 
-                      $displayOrderQuery =  "
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Lista de Órdenes de Ventas</div>
+          <div class="card-body">
+            <table id="tblCurrentOrder" class="table table-bordered" width="100%" cellspacing="0">
+              <thead>
+                <th># Orden</th>
+                <th>Menú</th>
+                <th>Nombre de Producto</th>
+                <th class='text-center'>Cantidad</th>
+                <th class='text-center'>Estado</th>
+                <th class='text-center'>Total</th>
+                <th class='text-center'>Fecha</th>
+              </thead>
+
+              <tbody id="tblBodyCurrentOrder">
+                <?php
+                $displayOrderQuery =  "
                         SELECT o.pedcod, m.catnom, OD.procod,MI.pronom,OD.peddetqty,O.pedest,mi.proprice ,o.peddate
                         FROM pedido O
                         LEFT JOIN pedidodetalle OD
@@ -170,138 +168,135 @@
                         ON MI.catcod = M.catcod
                         ";
 
-                      if ($orderResult = $sqlconnection->query($displayOrderQuery)) {
-                          
-                        $currentspan = 0;
+                if ($orderResult = $sqlconnection->query($displayOrderQuery)) {
+
+                  $currentspan = 0;
+                  $total = 0;
+
+                  //if no order
+                  if ($orderResult->num_rows == 0) {
+
+                    echo "<tr><td class='text-center' colspan='7' >Sin pedidos Actualmente </td></tr>";
+                  } else {
+                    while ($orderRow = $orderResult->fetch_array(MYSQLI_ASSOC)) {
+
+                      //basically count rowspan so no repetitive display id in each table row
+                      $rowspan = getCountID($orderRow["pedcod"], "pedcod", "pedidodetalle");
+
+                      if ($currentspan == 0) {
+                        $currentspan = $rowspan;
                         $total = 0;
+                      }
 
-                        //if no order
-                        if ($orderResult->num_rows == 0) {
+                      //get total for each order id
+                      $total += ($orderRow['proprice'] * $orderRow['peddetqty']);
 
-                          echo "<tr><td class='text-center' colspan='7' >Sin pedidos Actualmente </td></tr>";
-                        }
+                      echo "<tr>";
 
-                        else {
-                          while($orderRow = $orderResult->fetch_array(MYSQLI_ASSOC)) {
+                      if ($currentspan == $rowspan) {
+                        echo "<td rowspan=" . $rowspan . "># " . $orderRow['pedcod'] . "</td>";
+                      }
 
-                            //basically count rowspan so no repetitive display id in each table row
-                            $rowspan = getCountID($orderRow["pedcod"],"pedcod","pedidodetalle"); 
-
-                            if ($currentspan == 0) {
-                              $currentspan = $rowspan;
-                              $total = 0;
-                            }
-
-                            //get total for each order id
-                            $total += ($orderRow['proprice']*$orderRow['peddetqty']);
-
-                            echo "<tr>";
-
-                            if ($currentspan == $rowspan) {
-                              echo "<td rowspan=".$rowspan."># ".$orderRow['pedcod']."</td>";
-                            }
-
-                            echo "
-                              <td>".$orderRow['catnom']."</td>
-                              <td>".$orderRow['pronom']."</td>
-                              <td class='text-center'>".$orderRow['peddetqty']."</td>
+                      echo "
+                              <td>" . $orderRow['catnom'] . "</td>
+                              <td>" . $orderRow['pronom'] . "</td>
+                              <td class='text-center'>" . $orderRow['peddetqty'] . "</td>
                             ";
 
-                            if ($currentspan == $rowspan) {
+                      if ($currentspan == $rowspan) {
 
-                              $color = "badge";
+                        $color = "badge";
 
-                              switch ($orderRow['pedest']) {
-                                case 'waiting':
-                                  $color = "badge badge-warning";
-                                  break;
-                                
-                                case 'preparing':
-                                  $color = "badge badge-primary";
-                                  break;
+                        switch ($orderRow['pedest']) {
+                          case 'waiting':
+                            $color = "badge badge-warning";
+                            break;
 
-                                case 'ready':
-                                  $color = "badge badge-success";
-                                  break;
+                          case 'preparing':
+                            $color = "badge badge-primary";
+                            break;
 
-                                case 'cancelled':
-                                  $color = "badge badge-danger";
-                                  break;
+                          case 'ready':
+                            $color = "badge badge-success";
+                            break;
 
-                                case 'finish':
-                                  $color = "badge badge-success";
-                                  break;
+                          case 'cancelled':
+                            $color = "badge badge-danger";
+                            break;
 
-                                case 'Completed':
-                                  $color = "badge badge-success";
-                                  break;
-                              }
+                          case 'finish':
+                            $color = "badge badge-success";
+                            break;
 
-                              echo "<td class='text-center' rowspan=".$rowspan."><span class='{$color}'>".$orderRow['pedest']."</span></td>";
-
-                              echo "<td rowspan=".$rowspan." class='text-center'>".getSalesTotal($orderRow['pedcod'])."</td>";
-
-                              echo "<td rowspan=".$rowspan." class='text-center'>".$orderRow['peddate']."</td>";
-
-                            
-                              echo "</td>";
-
-                            }
-
-                            echo "</tr>";
-
-                            $currentspan--;
-                          }
+                          case 'Completed':
+                            $color = "badge badge-success";
+                            break;
                         }
-                        } 
-                      ?>
-                    </tbody>
-              </table>
-            </div>
-            </div>
-          </div>
 
-        <!-- /.container-fluid -->
-      </div>
-      <!-- /.content-wrapper -->
+                        echo "<td class='text-center' rowspan=" . $rowspan . "><span class='{$color}'>" . $orderRow['pedest'] . "</span></td>";
 
-    </div>
-    <!-- /#wrapper -->
+                        echo "<td rowspan=" . $rowspan . " class='text-center'>" . getSalesTotal($orderRow['pedcod']) . "</td>";
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-    </a>
+                        echo "<td rowspan=" . $rowspan . " class='text-center'>" . $orderRow['peddate'] . "</td>";
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">¿Preparado para partir?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Seleccione "Cerrar Sesión" a continuación si está listo para finalizar su sesión actual.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="logout.php">Cerrar Sesión</a>
+
+                        echo "</td>";
+                      }
+
+                      echo "</tr>";
+
+                      $currentspan--;
+                    }
+                  }
+                }
+                ?>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
+
+      <!-- /.container-fluid -->
     </div>
+    <!-- /.content-wrapper -->
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </div>
+  <!-- /#wrapper -->
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">¿Realmente desea Salir?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Pulse "Cerrar Sesión" para salir a la página principal</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="logout.php">Cerrar Sesión</a>
+        </div>
+      </div>W
+    </div>
+  </div>
 
-  </body>
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin.min.js"></script>
+
+</body>
 
 </html>

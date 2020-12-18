@@ -1,36 +1,30 @@
 <?php
 
-	if (isset($_POST['deleteCat'])) {
+if (isset($_POST['deleteCat'])) {
 
-		//Eliminando categoria
-		if (isset($_POST['catID'])) {
-			
-			$categoria = $sqlconnection->real_escape_string($_POST['catID']);
+	//Eliminando categoria
+	if (isset($_POST['catID'])) {
 
-			//primeramente se borran los productos
-			$deleteProdQuery = "DELETE FROM productos WHERE catcod = {$categoria}";
+		$categoria = $sqlconnection->real_escape_string($_POST['catID']);
 
-			if ($sqlconnection->query($deleteProdQuery) === TRUE) {
+		//primeramente se borran los productos
+		$deleteProdQuery = "DELETE FROM productos WHERE catcod = {$categoria}";
 
-				//Luego eliminamos la categoria
-				$deleteCatQuery = "DELETE FROM categoria WHERE catcod = {$categoria}";
+		if ($sqlconnection->query($deleteProdQuery) === TRUE) {
 
-				if ($sqlconnection->query($deleteCatQuery) === TRUE) {
-					header("Location: categoria.php");//modifcar 
-					exit();
-					} 
-				else {		
-						echo "someting wrong";
-						echo $sqlconnection->error;
-					}
-				} 
+			//Luego eliminamos la categoria
+			$deleteCatQuery = "DELETE FROM categoria WHERE catcod = {$categoria}";
 
-			else {
-					echo "someting wrong";
-					echo $sqlconnection->error;
-				}
+			if ($sqlconnection->query($deleteCatQuery) === TRUE) {
+				header("Location: categoria.php"); //modifcar 
+				exit();
+			} else {
+				echo "someting wrong";
+				echo $sqlconnection->error;
+			}
+		} else {
+			echo "someting wrong";
+			echo $sqlconnection->error;
 		}
 	}
-	
-
-?>
+}

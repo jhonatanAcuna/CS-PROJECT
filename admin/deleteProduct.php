@@ -1,32 +1,27 @@
 <?php
 
-	include("../functions.php");
+include("../functions.php");
 
-	if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
-		header("Location: login.php");
+if ((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])))
+	header("Location: login.php");
 
-	if($_SESSION['user_level'] != "admin")
-		header("Location: login.php");
+if ($_SESSION['user_level'] != "admin")
+	header("Location: login.php");
 
-	//eliminando los productos
-	if (isset($_GET['catCod']) && isset($_GET['prodCod'])) {
-		
-		$del_catcod = $sqlconnection->real_escape_string($_GET['catCod']);
-		$del_prodcod = $sqlconnection->real_escape_string($_GET['prodCod']);
+//eliminando los productos
+if (isset($_GET['catCod']) && isset($_GET['prodCod'])) {
 
-		$deleteProdQuery = "DELETE FROM productos WHERE catcod = {$del_catcod} AND procod = {$del_prodcod}";
+	$del_catcod = $sqlconnection->real_escape_string($_GET['catCod']);
+	$del_prodcod = $sqlconnection->real_escape_string($_GET['prodCod']);
 
-		if ($sqlconnection->query($deleteProdQuery) === TRUE) {
-				header("Location: categoria.php"); 
-				exit();
-			} 
+	$deleteProdQuery = "DELETE FROM productos WHERE catcod = {$del_catcod} AND procod = {$del_prodcod}";
 
-		else {
-				//handle
-				echo "someting wong";
-				echo $sqlconnection->error;
-
-		}
-		
+	if ($sqlconnection->query($deleteProdQuery) === TRUE) {
+		header("Location: categoria.php");
+		exit();
+	} else {
+		//handle
+		echo "someting wong";
+		echo $sqlconnection->error;
 	}
-?>
+}
