@@ -72,7 +72,7 @@ if ((isset($_SESSION['uid']) && isset($_SESSION['username']) && isset($_SESSION[
                 </div>
             </form>
             <div class="text-center p-t-20">
-            <i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
+              <i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
               <a href="../index.php" class="txt2">Volver al Inicio</a>
             </div>
           </div>

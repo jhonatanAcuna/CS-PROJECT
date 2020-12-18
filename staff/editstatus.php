@@ -1,53 +1,41 @@
 <?php
-	include("../functions.php");
+include("../functions.php");
 
-	if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
-		header("Location: login.php");
+if ((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])))
+	header("Location: login.php");
 
-	if($_SESSION['user_level'] != "employee")
-		header("Location: login.php");
+if ($_SESSION['user_level'] != "employee")
+	header("Location: login.php");
 
-	if (isset($_POST['status']) && isset($_POST['orderID'])) {
+if (isset($_POST['status']) && isset($_POST['orderID'])) {
 
-		$status = $sqlconnection->real_escape_string($_POST['status']);
-		$orderID = $sqlconnection->real_escape_string($_POST['orderID']);
+	$status = $sqlconnection->real_escape_string($_POST['status']);
+	$orderID = $sqlconnection->real_escape_string($_POST['orderID']);
 
-		$addOrderQuery = "UPDATE pedido SET pedest = '{$status}' WHERE pedcod = {$orderID};";
+	$addOrderQuery = "UPDATE pedido SET pedest = '{$status}' WHERE pedcod = {$orderID};";
 
-		if ($sqlconnection->query($addOrderQuery) === TRUE) {
-				echo "inserted.";
-			} 
-
-		else {
-				//handle
-				echo "someting wong";
-				echo $sqlconnection->error;
-
-		}
-
+	if ($sqlconnection->query($addOrderQuery) === TRUE) {
+		echo "inserted.";
+	} else {
+		//handle
+		echo "someting wong";
+		echo $sqlconnection->error;
 	}
+}
 
-	if (isset($_GET['orderID'])) {
+if (isset($_GET['orderID'])) {
 
-		$status = "Completed";
-		$orderID = $sqlconnection->real_escape_string($_GET['orderID']);
+	$status = "Completed";
+	$orderID = $sqlconnection->real_escape_string($_GET['orderID']);
 
-		$addOrderQuery = "UPDATE pedido SET pedest = '{$status}' WHERE pedcod = {$orderID};";
+	$addOrderQuery = "UPDATE pedido SET pedest = '{$status}' WHERE pedcod = {$orderID};";
 
-		if ($sqlconnection->query($addOrderQuery) === TRUE) {
-				echo "inserted.";
-				header("Location: index.php");
-			} 
-
-		else {
-				//handle
-				echo "someting wong";
-				echo $sqlconnection->error;
-
-		}
-
+	if ($sqlconnection->query($addOrderQuery) === TRUE) {
+		echo "inserted.";
+		header("Location: index.php");
+	} else {
+		//handle
+		echo "someting wong";
+		echo $sqlconnection->error;
 	}
-
-
-
-?>
+}
