@@ -11,9 +11,10 @@ if (isset($_POST['addEmployee'])) {
 	if (!empty($_POST['employeeName']) && !empty($_POST['employeeRol'])) {
 		$empUserName = $sqlconnection->real_escape_string($_POST['employeeName']);
 		$empRol = $sqlconnection->real_escape_string($_POST['employeeRol']);
+		$pass = "empleado1234";
+		$clave_hash = password_hash($pass, PASSWORD_DEFAULT);
 
-
-		$addStaffQuery = "INSERT INTO empleado (empuser ,emppass ,empest ,emprol) VALUES ('{$empUserName}' ,'empleado1234' ,'Offline' ,'{$empRol}') ";
+		$addStaffQuery = "INSERT INTO empleado (empuser ,emppass ,empest ,emprol) VALUES ('{$empUserName}' ,'{$clave_hash}' ,'Offline' ,'{$empRol}') ";
 
 		if ($sqlconnection->query($addStaffQuery) === TRUE) {
 			echo "added.";
