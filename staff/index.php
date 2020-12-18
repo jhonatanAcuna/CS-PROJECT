@@ -106,6 +106,12 @@ function getStatus()
       }
 
       ?>
+      <li class="nav-item">
+        <a class="nav-link" href="changePassword.php">
+          <i class="fas fa-fw fa-lock"></i>
+          <span>Cambiar Contraseña</span>
+        </a>
+      </li>
 
       <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
