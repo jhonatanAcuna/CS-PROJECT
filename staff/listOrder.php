@@ -22,7 +22,7 @@ if ($_GET['cmd'] == 'currentorder') {
 					ON OD.procod = MI.procod
 					LEFT JOIN categoria M
 					ON MI.catcod = M.catcod
-					WHERE O.pedest 
+					WHERE O.pedest
 					IN ( 'waiting','preparing','ready')
 				";
 

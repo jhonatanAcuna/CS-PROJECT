@@ -197,14 +197,14 @@ if ($_SESSION['user_role'] != "Cocinero") {
     }
 
 
-    function editStatus(objBtn, orderID) {
+    function editStatus(objBtn, pedcod) {
       var status = objBtn.value;
 
       $.ajax({
         url: "editstatus.php",
         type: 'POST',
         data: {
-          orderID: orderID,
+          pedcod: pedcod,
           status: status
         },
 

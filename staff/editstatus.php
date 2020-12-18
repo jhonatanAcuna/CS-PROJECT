@@ -7,12 +7,12 @@ if ((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSIO
 if ($_SESSION['user_level'] != "employee")
 	header("Location: login.php");
 
-if (isset($_POST['status']) && isset($_POST['orderID'])) {
+if (isset($_POST['status']) && isset($_POST['pedcod'])) {
 
 	$status = $sqlconnection->real_escape_string($_POST['status']);
-	$orderID = $sqlconnection->real_escape_string($_POST['orderID']);
+	$pedcod = $sqlconnection->real_escape_string($_POST['pedcod']);
 
-	$addOrderQuery = "UPDATE pedido SET pedest = '{$status}' WHERE pedcod = {$orderID};";
+	$addOrderQuery = "UPDATE pedido SET pedest = '{$status}' WHERE pedcod = {$pedcod};";
 
 	if ($sqlconnection->query($addOrderQuery) === TRUE) {
 		echo "inserted.";
@@ -23,12 +23,12 @@ if (isset($_POST['status']) && isset($_POST['orderID'])) {
 	}
 }
 
-if (isset($_GET['orderID'])) {
+if (isset($_GET['pedcod'])) {
 
 	$status = "Completed";
-	$orderID = $sqlconnection->real_escape_string($_GET['orderID']);
+	$pedcod = $sqlconnection->real_escape_string($_GET['pedcod']);
 
-	$addOrderQuery = "UPDATE pedido SET pedest = '{$status}' WHERE pedcod = {$orderID};";
+	$addOrderQuery = "UPDATE pedido SET pedest = '{$status}' WHERE pedcod = {$pedcod};";
 
 	if ($sqlconnection->query($addOrderQuery) === TRUE) {
 		echo "inserted.";
