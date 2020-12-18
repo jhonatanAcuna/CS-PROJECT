@@ -51,21 +51,18 @@ if ($_SESSION['user_role'] != "Mozo") {
       <i class="fas fa-bars"></i>
     </button>
 
-    <!-- Navbar -->
-    <ul class="navbar-nav ml-auto ml-md-0">
-      <li class="nav-item dropdown no-arrow">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user-circle fa-fw"></i>
-        </a>
-      </li>
-    </ul>
-
   </nav>
 
   <div id="wrapper">
 
     <!------------------ Sidebar ------------------->
     <ul class="sidebar navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link">
+          <img src="images/waiter.png" width="70" height="70">
+          <span><?php echo $_SESSION['username'] ?></span>
+        </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -209,14 +206,14 @@ if ($_SESSION['user_role'] != "Mozo") {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">¿Realmente deseas cerrar sesión?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">¿Realmente desea Salir?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su sesión actual.</div>
+        <div class="modal-body">Pulse "Cerrar Sesión" para salir a la página principal</div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="logout.php">Cerrar Sesión</a>
         </div>
       </div>

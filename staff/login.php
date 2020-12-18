@@ -47,7 +47,7 @@ if ((isset($_SESSION['uid']) && isset($_SESSION['username']) && isset($_SESSION[
           <div class="card-body">
             <form id="loginform">
               <div class="form-group">
-                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                <div class="wrap-input100 validate-input">
                   <input class="input100" type="text" id="inputUsername" name="username" class="form-control" placeholder="Usuario" required="required">
                   <span class="focus-input100"></span>
                   <span class="symbol-input100">
